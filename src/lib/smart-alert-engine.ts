@@ -1,5 +1,5 @@
 // BRAND NEW Smart Alert Engine - Actionable & Automated
-// Generates intelligent alerts with real revenue calculations and Claude AI recommendations
+// Generates intelligent alerts with real revenue calculations and AI AI recommendations
 
 import Anthropic from '@anthropic-ai/sdk'
 
@@ -44,7 +44,7 @@ export interface ActionableAlert {
   }>
 
   // AI enhancement
-  claude_analysis?: string
+  ai_analysis?: string
   confidence_level: number // 0-1
 
   // Context
@@ -549,14 +549,14 @@ export class SmartAlertEngine {
 
     console.log(`⚡ Generated ${alerts.length} base smart alerts`)
 
-    // Enhance with Claude AI (if API key available)
+    // Enhance with AI AI (if API key available)
     if (process.env.ANTHROPIC_API_KEY && alerts.length > 0) {
       try {
-        const enhancedAlerts = await this.enhanceAlertsWithClaude(alerts.slice(0, 10)) // Limit to top 10 for cost
-        console.log(`🤖 Enhanced ${enhancedAlerts.length} alerts with Claude AI`)
+        const enhancedAlerts = await this.enhanceAlertsWithAI(alerts.slice(0, 10)) // Limit to top 10 for cost
+        console.log(`🤖 Enhanced ${enhancedAlerts.length} alerts with AI AI`)
         return enhancedAlerts
       } catch (error) {
-        console.error('Claude enhancement failed, returning base alerts:', error)
+        console.error('AI enhancement failed, returning base alerts:', error)
         return alerts
       }
     }
@@ -565,9 +565,9 @@ export class SmartAlertEngine {
   }
 
   /**
-   * Enhance alerts with Claude AI strategic analysis
+   * Enhance alerts with AI AI strategic analysis
    */
-  private static async enhanceAlertsWithClaude(alerts: ActionableAlert[]): Promise<ActionableAlert[]> {
+  private static async enhanceAlertsWithAI(alerts: ActionableAlert[]): Promise<ActionableAlert[]> {
     try {
       const Anthropic = (await import('@anthropic-ai/sdk')).default
       const anthropic = new Anthropic({
@@ -611,28 +611,28 @@ Return a JSON array with ${alerts.length} objects, each with:
 
       const content = response.content[0]
       if (content.type !== 'text') {
-        throw new Error('Unexpected response type from Claude')
+        throw new Error('Unexpected response type from AI')
       }
 
-      // Parse Claude's response
+      // Parse AI's response
       const analysisText = content.text
       const jsonMatch = analysisText.match(/\[[\s\S]*\]/)
 
       if (!jsonMatch) {
-        console.warn('Could not parse Claude response, returning original alerts')
+        console.warn('Could not parse AI response, returning original alerts')
         return alerts
       }
 
       const analyses = JSON.parse(jsonMatch[0])
 
-      // Enhance each alert with Claude's analysis
+      // Enhance each alert with AI's analysis
       return alerts.map((alert, index) => {
         const analysis = analyses.find((a: any) => a.alert_index === index + 1)
 
         if (analysis) {
           return {
             ...alert,
-            claude_analysis: analysis.strategic_analysis,
+            ai_analysis: analysis.strategic_analysis,
             confidence_level: Math.min(alert.confidence_level * analysis.confidence_adjustment, 1.0)
           }
         }
@@ -641,7 +641,7 @@ Return a JSON array with ${alerts.length} objects, each with:
       })
 
     } catch (error) {
-      console.error('Claude AI enhancement error:', error)
+      console.error('AI AI enhancement error:', error)
       return alerts // Return original alerts if enhancement fails
     }
   }

@@ -87,7 +87,7 @@ export interface SmartAlert {
   severity: 'low' | 'medium' | 'high' | 'critical'
   message: string
   recommendation: {
-    claude_analysis: string
+    ai_analysis: string
     strategic_options: string[]
     immediate_actions: string[]
     risk_level: string
@@ -461,7 +461,7 @@ export class PostgreSQLService {
             escalate_after_hours: alert.escalate_if_not_resolved_hours || null,
 
             // Claude AI analysis
-            claude_insight: alert.claude_analysis || null,
+            ai_insight: alert.ai_analysis || null,
 
             // Status flags
             acknowledged: false,

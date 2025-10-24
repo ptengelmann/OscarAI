@@ -112,9 +112,9 @@ export function VisualPortfolioHealth({ healthScore, portfolioAssessment, dataCo
     )
   }
 
-  // Parse the Claude assessment text to extract metrics
+  // Parse the AI assessment text to extract metrics
   const parseMetrics = () => {
-    const assessment = portfolioAssessment?.claude_assessment || ''
+    const assessment = portfolioAssessment?.ai_assessment || ''
 
     // Extract key numbers from text using regex
     const extractNumber = (pattern: RegExp) => {

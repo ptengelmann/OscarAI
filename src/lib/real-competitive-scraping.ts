@@ -1,10 +1,10 @@
 // src/lib/real-competitive-scraping.ts
-// PRODUCTION VERSION - Real SERP API + Claude AI insights with Dynamic Product Name Transformation
+// PRODUCTION VERSION - Real SERP API + AI insights with Dynamic Product Name Transformation
 
 import { CompetitorPrice } from '@/types'
 import Anthropic from '@anthropic-ai/sdk'
 
-// Initialize Claude
+// Initialize AI client
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY!,
 })

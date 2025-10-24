@@ -652,14 +652,14 @@ model ActionApproval {
   @@map("action_approvals")
 }
 
-// Claude AI Insight Caching - stores generated insights to prevent regeneration
-model ClaudeInsight {
+// AI Insight Caching - stores generated insights to prevent regeneration
+model AiInsight {
   id                          String   @id @default(cuid())
   user_id                     String
   insight_type                String   // 'strategic_alert' | 'market_opportunity' | 'competitive_threat' | 'pricing_strategy'
   priority                    String   // 'critical' | 'high' | 'medium' | 'low'
   title                       String
-  claude_analysis             String   @db.Text
+  ai_analysis                 String   @db.Text
   strategic_recommendations   Json     // array of strings
   immediate_actions           Json     // array of strings
   revenue_impact_estimate     Float
@@ -678,5 +678,5 @@ model ClaudeInsight {
   @@index([user_id, expires_at])
   @@index([user_id, generated_at(sort: Desc)])
   @@index([insight_type, priority])
-  @@map("claude_insights")
+  @@map("ai_insights")
 }

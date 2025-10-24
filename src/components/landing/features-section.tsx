@@ -38,7 +38,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ features, scro
             Real features that actually work - not marketing promises
           </p>
           <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/5 border border-white/20 rounded">
-            <span className="text-white/60 text-sm">Claude AI + Real web scraping + UK market expertise</span>
+            <span className="text-white/60 text-sm">AI + Real web scraping + UK market expertise</span>
           </div>
         </div>
 

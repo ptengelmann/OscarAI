@@ -72,9 +72,9 @@ const howItWorksSteps = [
     step: 1,
     title: "Upload & AI Brand Recognition",
     headline: "CSV upload, instant brand recognition",
-    description: "Upload your product CSV and Claude AI automatically identifies your alcohol brands and categories. Within minutes, our system starts scraping live competitor prices from 20+ UK retailers and building your competitive intelligence dashboard.",
+    description: "Upload your product CSV and our AI automatically identifies your alcohol brands and categories. Within minutes, our system starts scraping live competitor prices from 20+ UK retailers and building your competitive intelligence dashboard.",
     features: [
-      "AI recognizes brands automatically using Claude",
+      "AI recognizes brands automatically",
       "Works with CSV, Excel - simple upload interface",
       "Covers spirits, wine, beer, RTD, craft categories",
       "Instant competitive scraping begins upon upload",
@@ -100,11 +100,11 @@ const howItWorksSteps = [
     step: 3,
     title: "UK Events + AI Strategy",
     headline: "20+ UK events with AI-generated strategies",
-    description: "Our built-in UK Events Calendar tracks Wimbledon, Burns Night, Chelsea Flower Show, Bonfire Night, Royal Ascot, and 15+ more events. Claude AI generates event-specific strategies with timing, pricing, and revenue predictions for your portfolio.",
+    description: "Our built-in UK Events Calendar tracks Wimbledon, Burns Night, Chelsea Flower Show, Bonfire Night, Royal Ascot, and 15+ more events. Our AI generates event-specific strategies with timing, pricing, and revenue predictions for your portfolio.",
     features: [
       "UK Events Calendar: Wimbledon, Burns Night, Chelsea Flower Show, etc.",
       "AI-generated seasonal strategies tied to UK events",
-      "Portfolio health scoring (1-10) with Claude analysis",
+      "Portfolio health scoring (1-10) with AI analysis",
       "Confidence scores on every AI recommendation",
       "Impact analytics ready (track predicted vs actual when Shopify connects)"
     ],

@@ -60,7 +60,7 @@ interface SmartAlertCardProps {
   time_to_critical: string
   primary_action: ActionStep
   alternative_actions?: AlternativeAction[]
-  claude_analysis?: string
+  ai_analysis?: string
   confidence_level: number
   product_context?: ProductContext
   can_auto_resolve: boolean
@@ -87,7 +87,7 @@ export function SmartAlertCard({
   time_to_critical,
   primary_action,
   alternative_actions = [],
-  claude_analysis,
+  ai_analysis,
   confidence_level,
   product_context,
   can_auto_resolve,
@@ -411,14 +411,14 @@ export function SmartAlertCard({
             <p className="text-sm text-white/80 leading-relaxed">{message}</p>
           </div>
 
-          {/* Claude AI Analysis */}
-          {claude_analysis && (
+          {/* AI Analysis */}
+          {ai_analysis && (
             <div className="bg-indigo-500/5 border border-indigo-500/20 rounded-lg p-3">
               <div className="flex items-start gap-2">
                 <Info className="h-4 w-4 text-indigo-400 mt-0.5 flex-shrink-0" />
                 <div>
-                  <h4 className="text-sm font-medium text-indigo-300 mb-1">Claude AI Strategic Insight</h4>
-                  <p className="text-sm text-white/70 leading-relaxed">{claude_analysis}</p>
+                  <h4 className="text-sm font-medium text-indigo-300 mb-1">AI Strategic Insight</h4>
+                  <p className="text-sm text-white/70 leading-relaxed">{ai_analysis}</p>
                 </div>
               </div>
             </div>

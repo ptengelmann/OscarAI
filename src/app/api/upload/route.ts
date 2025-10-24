@@ -245,7 +245,7 @@ export async function POST(request: NextRequest) {
     }
 
     // STEP 4: Generate AI-powered alerts with smart alerts - FIXED VERSION
-    console.log('🚨 Generating AI-powered alerts with Claude integration...')
+    console.log('🚨 Generating AI-powered alerts with AI integration...')
 
     let smartAlerts: any[] = []
     try {
@@ -255,10 +255,10 @@ export async function POST(request: NextRequest) {
         userEmail
       )
       
-      // Use the enhanced alerts with Claude AI
+      // Use the enhanced alerts with AI AI
       smartAlerts = alertResults.smart_alerts
       
-      console.log(`⚡ Generated ${smartAlerts.length} smart alerts with Claude AI`)
+      console.log(`⚡ Generated ${smartAlerts.length} smart alerts with AI AI`)
       
     } catch (alertError) {
       console.error('❌ AI alert generation failed:', alertError)
@@ -286,7 +286,7 @@ export async function POST(request: NextRequest) {
         severity: alert.severity,
         message: alert.message,
         recommendation: {
-          claude_analysis: `Fallback analysis for ${alert.type} alert`,
+          ai_analysis: `Fallback analysis for ${alert.type} alert`,
           strategic_options: [alert.action_required],
           immediate_actions: [alert.action_required],
           risk_level: alert.severity,
@@ -381,7 +381,7 @@ export async function POST(request: NextRequest) {
     console.log(`🎉 Analysis complete in ${processingTime}ms`)
     console.log(`📊 Generated ${priceRecommendations.length} recommendations`)
     console.log(`🤖 Created ${creativeRecommendations.length} GPT-4 strategies`)
-    console.log(`⚡ Generated ${smartAlerts.length} smart alerts with Claude AI`)
+    console.log(`⚡ Generated ${smartAlerts.length} smart alerts with AI AI`)
     console.log(`🎄 Generated ${seasonalStrategies.length} seasonal strategies`)
 
     return NextResponse.json({

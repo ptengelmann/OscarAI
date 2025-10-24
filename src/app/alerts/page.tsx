@@ -37,7 +37,7 @@ interface SmartAlert {
   time_to_resolve?: number
   ai_recommendation?: any
   alternative_actions?: any[]
-  claude_insight?: string
+  ai_insight?: string
   confidence_level: number
   product_data?: any
   can_auto_resolve: boolean
@@ -487,7 +487,7 @@ export default function SmartAlertsPage() {
                     expected_outcome: 'Resolve issue'
                   }}
                   alternative_actions={alert.alternative_actions}
-                  claude_analysis={alert.claude_insight}
+                  ai_analysis={alert.ai_insight}
                   confidence_level={alert.confidence_level || 0.8}
                   product_context={alert.product_data}
                   can_auto_resolve={alert.can_auto_resolve}

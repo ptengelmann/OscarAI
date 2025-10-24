@@ -1,4 +1,4 @@
-// src/components/ui/visual-claude-insights.tsx
+// src/components/ui/visual-ai-insights.tsx
 'use client'
 
 import React, { useState } from 'react'
@@ -11,12 +11,12 @@ import {
   Package, Users, ChevronDown, ChevronUp, Zap, Shield, Activity
 } from 'lucide-react'
 
-interface ClaudeInsight {
+interface AIInsight {
   id: string
   type: 'strategic_alert' | 'market_opportunity' | 'competitive_threat' | 'pricing_strategy'
   priority: 'critical' | 'high' | 'medium' | 'low'
   title: string
-  claude_analysis: string
+  ai_analysis: string
   strategic_recommendations: string[]
   immediate_actions: string[]
   revenue_impact_estimate: number
@@ -28,11 +28,11 @@ interface ClaudeInsight {
   timestamp: Date
 }
 
-interface VisualClaudeInsightsProps {
-  insights: ClaudeInsight[]
+interface VisualAIInsightsProps {
+  insights: AIInsight[]
 }
 
-export function VisualClaudeInsights({ insights }: VisualClaudeInsightsProps) {
+export function VisualAIInsights({ insights }: VisualAIInsightsProps) {
   const [expandedInsight, setExpandedInsight] = useState<string | null>(null)
   const [filterPriority, setFilterPriority] = useState<string>('all')
 
@@ -265,7 +265,7 @@ export function VisualClaudeInsights({ insights }: VisualClaudeInsightsProps) {
                       </span>
                     </div>
                     <h3 className="text-xl font-semibold text-white mb-2">{insight.title}</h3>
-                    <p className="text-sm text-white/70 line-clamp-2">{insight.claude_analysis}</p>
+                    <p className="text-sm text-white/70 line-clamp-2">{insight.ai_analysis}</p>
                   </div>
                 </div>
                 <button
@@ -346,13 +346,13 @@ export function VisualClaudeInsights({ insights }: VisualClaudeInsightsProps) {
             {expandedInsight === insight.id && (
               <div className="border-t border-white/10 bg-black/20 p-6 space-y-6">
 
-                {/* Market Context */}
+                {/* AI Analysis */}
                 <div>
                   <div className="flex items-center space-x-2 mb-3">
                     <Brain className="h-5 w-5 text-purple-400" />
-                    <h4 className="text-lg font-semibold text-white">Claude AI Analysis</h4>
+                    <h4 className="text-lg font-semibold text-white">AI Strategic Analysis</h4>
                   </div>
-                  <p className="text-white/70 leading-relaxed">{insight.claude_analysis}</p>
+                  <p className="text-white/70 leading-relaxed">{insight.ai_analysis}</p>
                 </div>
 
                 {/* Market Context */}

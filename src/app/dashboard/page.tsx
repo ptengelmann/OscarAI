@@ -92,12 +92,12 @@ interface AnalysisDetails {
   processedAt: string
 }
 
-interface ClaudeInsight {
+interface AIInsight {
   id: string
   type: 'strategic_alert' | 'market_opportunity' | 'competitive_threat' | 'pricing_strategy'
   priority: 'critical' | 'high' | 'medium' | 'low'
   title: string
-  claude_analysis: string
+  ai_analysis: string
   strategic_recommendations: string[]
   immediate_actions: string[]
   revenue_impact_estimate: number
@@ -110,7 +110,7 @@ interface ClaudeInsight {
 }
 
 interface CompetitiveFeedData {
-  claude_insights: ClaudeInsight[]
+  ai_insights: AIInsight[]
   monitoring_strategy: any
   portfolio_assessment: any
   data_context: any
@@ -190,10 +190,10 @@ function safeParseArray(data: any): any[] {
 }
 
 /**
- * Parse Claude insight text into executable actions
+ * Parse AI insight text into executable actions
  * Extracts specific actions like "Lower price to £28.99" or "Reorder 40 units"
  */
-function parseInsightActions(insight: ClaudeInsight): ActionPayload[] {
+function parseInsightActions(insight: AIInsight): ActionPayload[] {
   const actions: ActionPayload[] = []
 
   // Parse immediate actions for executable patterns
@@ -734,7 +734,7 @@ useEffect(() => {
               <div>Selected Analysis: {selectedAnalysisId || 'none'}</div>
               <div>Seasonal Strategies: {seasonalStrategies.length}</div>
               <div>Monitoring Active: {monitoringStatus?.isActive ? 'Yes' : 'No'}</div>
-              <div>Claude Insights: {feedData?.claude_insights?.length || 0}</div>
+              <div>AI Insights: {feedData?.ai_insights?.length || 0}</div>
             </div>
           </div>
         )}
@@ -781,9 +781,9 @@ useEffect(() => {
                     isActive ? "text-white" : "text-white/40 group-hover:text-white/60"
                   }`} />
                   <span>{tab.label}</span>
-                  {tab.id === 'live-intelligence' && feedData?.claude_insights && feedData.claude_insights.length > 0 && (
+                  {tab.id === 'live-intelligence' && feedData?.ai_insights && feedData.ai_insights.length > 0 && (
                     <span className="ml-2 px-2 py-1 bg-red-500/20 text-red-300 text-xs rounded border border-red-500/30">
-                      {feedData.claude_insights.filter(i => i.priority === 'critical' || i.priority === 'high').length}
+                      {feedData.ai_insights.filter(i => i.priority === 'critical' || i.priority === 'high').length}
                     </span>
                   )}
                 </button>
@@ -918,13 +918,13 @@ useEffect(() => {
                   />
                 )}
 
-                {/* Claude AI Strategic Insights */}
+                {/* AI Engine Strategic Insights */}
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-lg font-medium text-white flex items-center space-x-2">
                         <Zap className="h-5 w-5 text-white/60" />
-                        <span>Claude AI Strategic Insights</span>
+                        <span>AI Engine Strategic Insights</span>
                         {feedData?.cached && (
                           <span className="ml-2 px-2 py-0.5 bg-green-500/20 text-green-300 text-xs rounded border border-green-500/30">
                             Cached
@@ -952,7 +952,7 @@ useEffect(() => {
                       )}
                     </div>
                     <div className="flex items-center space-x-2 text-sm text-white/60">
-                      <span>{feedData?.claude_insights?.length || 0} insights</span>
+                      <span>{feedData?.ai_insights?.length || 0} insights</span>
                       <span>•</span>
                       <div className="relative inline-flex items-center group">
                         <span>£{Math.round(feedData?.data_context?.total_revenue_at_risk || 0).toLocaleString()} impact</span>
@@ -965,7 +965,7 @@ useEffect(() => {
                           <div className="absolute bottom-full right-0 mb-2 w-72 bg-gray-900 border border-white/20 rounded-lg p-3 shadow-xl z-50 text-xs text-white/90 leading-relaxed">
                             <div className="font-semibold mb-1.5 text-white">Revenue Impact Explained</div>
                             <p className="mb-2">
-                              This shows the <span className="text-green-400 font-medium">total potential revenue opportunity</span> identified by Claude AI across all strategic insights.
+                              This shows the <span className="text-green-400 font-medium">total potential revenue opportunity</span> identified by AI Engine across all strategic insights.
                             </p>
                             <p className="text-white/70">
                               <strong>How it's calculated:</strong> Based on recommended price changes, competitive positioning adjustments, and seasonal opportunities. Each insight's revenue estimate is summed to show your total addressable opportunity.
@@ -977,7 +977,7 @@ useEffect(() => {
                     </div>
                   </div>
 
-                  {feedData?.claude_insights && feedData.claude_insights.length === 0 ? (
+                  {feedData?.ai_insights && feedData.ai_insights.length === 0 ? (
                     <div className="text-center py-8 bg-white/5 border border-white/20 rounded-lg">
                       <Brain className="h-12 w-12 mx-auto mb-3 text-white/30" />
                       <p className="text-white/60">No strategic insights detected</p>
@@ -985,7 +985,7 @@ useEffect(() => {
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                      {feedData?.claude_insights && feedData.claude_insights.map((insight) => {
+                      {feedData?.ai_insights && feedData.ai_insights.map((insight) => {
                         const isExpanded = expandedInsights.has(insight.id)
                         const priorityStyle = getPriorityStyle(insight.priority)
                         const priorityIcon = getPriorityIcon(insight.priority)
@@ -1020,7 +1020,7 @@ useEffect(() => {
                                     <div className="absolute top-full right-0 mt-2 w-64 bg-gray-900 border border-white/20 rounded-lg p-3 shadow-xl z-50 text-xs text-white/90 leading-relaxed">
                                       <div className="font-semibold mb-1.5 text-white">Revenue Impact Estimate</div>
                                       <p className="mb-2 text-white/70">
-                                        Claude AI calculated this based on:
+                                        AI Engine calculated this based on:
                                       </p>
                                       <ul className="space-y-1 text-white/70 text-xs">
                                         <li>• {insight.affected_products.length} affected product{insight.affected_products.length !== 1 ? 's' : ''}</li>
@@ -1042,7 +1042,7 @@ useEffect(() => {
                             <div className="p-4 space-y-3">
                               {/* Shortened analysis - max 2 lines */}
                               <p className="text-white/70 text-sm leading-relaxed line-clamp-2">
-                                {insight.claude_analysis}
+                                {insight.ai_analysis}
                               </p>
 
                               {/* Compact metadata */}
@@ -1118,7 +1118,7 @@ useEffect(() => {
                                   {/* Full Analysis */}
                                   <div>
                                     <h5 className="text-xs uppercase text-white/50 mb-2">Full Analysis</h5>
-                                    <p className="text-sm text-white/70 leading-relaxed">{insight.claude_analysis}</p>
+                                    <p className="text-sm text-white/70 leading-relaxed">{insight.ai_analysis}</p>
                                   </div>
 
                                   {/* Strategic Recommendations */}
@@ -1240,7 +1240,7 @@ useEffect(() => {
                   <div className="mt-3 pt-3 border-t border-white/10 text-center">
                     <p className="text-xs text-white/50">
                       Last updated: {new Date().toLocaleTimeString()} • 
-                      Powered by Claude AI & SERP API • 
+                      Powered by AI Engine & SERP API • 
                       Analysis period: {feedData?.data_context?.analysis_period || '7 days'}
                     </p>
                   </div>

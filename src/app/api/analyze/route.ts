@@ -180,7 +180,7 @@ export async function POST(request: NextRequest) {
       competitorData = []
     }
 
-    // Step 3: Generate Claude-powered price recommendations
+    // Step 3: Generate AI-powered price recommendations
     console.log('💰 Generating AI-powered price recommendations...')
     
     let priceRecommendations: any[] = []
@@ -189,7 +189,7 @@ export async function POST(request: NextRequest) {
       // COMMENTED OUT - Using fallback for now
       // const { AIPriceRecommendations } = await import('@/lib/ai-price-recommendations')
       // priceRecommendations = await AIPriceRecommendations.generateIntelligentPricing(alcoholSKUs, competitorData)
-      // console.log(`💰 Generated ${priceRecommendations.length} Claude-powered price recommendations`)
+      // console.log(`💰 Generated ${priceRecommendations.length} AI-powered price recommendations`)
 
       // Force fallback path
       throw new Error('Using fallback pricing logic')
@@ -416,7 +416,7 @@ export async function POST(request: NextRequest) {
     console.log(`✅ Analysis completed in ${processingTime}ms`)
     console.log(`📊 Generated: ${priceRecommendations.length} price recs, ${seasonalRecommendations.length} seasonal strategies, ${marketInsights.length} insights`)
     console.log(`🎯 REAL COMPETITIVE DATA: ${competitorData.length} competitor prices from ${summary.retailersCovered} UK retailers`)
-    console.log(`⚡ SMART ALERTS: ${smartAlerts.length} Claude-powered smart alerts generated`)
+    console.log(`⚡ SMART ALERTS: ${smartAlerts.length} AI-powered smart alerts generated`)
 
     // Step 10: Return results with smart alerts included
     return NextResponse.json({

@@ -7,7 +7,7 @@ import { AuthModal } from '@/components/ui/auth-modals'
 import { useUser } from '@/contexts/UserContext'
 import { useRouter } from 'next/navigation'
 import { VisualPortfolioHealth } from '@/components/ui/visual-portfolio-health'
-import { VisualClaudeInsights } from '@/components/ui/visual-claude-insights'
+import { VisualAIInsights } from '@/components/ui/visual-ai-insights'
 import {
   Brain,
   RefreshCw,
@@ -22,7 +22,7 @@ import {
 interface CompetitiveIntelligenceData {
   success: boolean
   analysis_depth: string
-  claude_insights: any[]
+  ai_insights: any[]
   monitoring_strategy: any
   portfolio_assessment: any
   market_opportunities: any[]
@@ -152,7 +152,7 @@ export default function IntelligencePage() {
               AI-Powered Competitive Intelligence
             </h2>
             <p className="text-white/60 mb-8 max-w-2xl mx-auto">
-              Get real-time strategic insights powered by Claude AI. Analyze your portfolio health,
+              Get real-time strategic insights powered by advanced AI. Analyze your portfolio health,
               identify opportunities, and receive actionable recommendations.
             </p>
             <div className="flex items-center justify-center space-x-4">
@@ -239,7 +239,7 @@ export default function IntelligencePage() {
                 </div>
                 <div>
                   <h1 className="text-4xl font-light text-white">Live Competitive Intelligence</h1>
-                  <p className="text-white/60">Powered by Claude AI & Real-time Market Data</p>
+                  <p className="text-white/60">Powered by AI & Real-time Market Data</p>
                 </div>
               </div>
             </div>
@@ -299,7 +299,7 @@ export default function IntelligencePage() {
                   <span className="text-xs text-white/50">AI Insights</span>
                 </div>
                 <div className="text-2xl font-bold text-white">
-                  {intelligenceData.claude_insights?.length || 0}
+                  {intelligenceData.ai_insights?.length || 0}
                 </div>
                 <div className="text-xs text-white/50">Generated</div>
               </div>
@@ -331,13 +331,13 @@ export default function IntelligencePage() {
               />
             </div>
 
-            {/* Claude Insights Visualization */}
+            {/* AI Insights Visualization */}
             <div>
               <div className="flex items-center space-x-3 mb-6">
                 <Sparkles className="h-6 w-6 text-yellow-400" />
                 <h2 className="text-3xl font-light text-white">Strategic Insights</h2>
               </div>
-              <VisualClaudeInsights insights={intelligenceData.claude_insights || []} />
+              <VisualAIInsights insights={intelligenceData.ai_insights || []} />
             </div>
 
             {/* Market Opportunities */}

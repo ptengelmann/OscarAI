@@ -19,7 +19,7 @@ export const InteractiveDemo: React.FC<InteractiveDemoProps> = ({ animatedNumber
           </p>
           <div className="inline-flex items-center space-x-2 px-3 py-1 bg-green-500/10 border border-green-400/30 rounded">
             <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-green-300 text-xs">Real scraping from UK retailers + Claude AI</span>
+            <span className="text-green-300 text-xs">Real scraping from UK retailers + AI</span>
           </div>
         </div>
 

@@ -1,5 +1,5 @@
 // src/components/ui/live-competitive-dashboard.tsx
-// Claude AI-powered live competitive intelligence dashboard
+// AI-powered live competitive intelligence dashboard
 
 'use client'
 
@@ -25,12 +25,12 @@ import {
   ExternalLink
 } from 'lucide-react'
 
-interface ClaudeInsight {
+interface AIInsight {
   id: string
   type: 'strategic_alert' | 'market_opportunity' | 'competitive_threat' | 'pricing_strategy'
   priority: 'critical' | 'high' | 'medium' | 'low'
   title: string
-  claude_analysis: string
+  ai_analysis: string
   strategic_recommendations: string[]
   immediate_actions: string[]
   revenue_impact_estimate: number
@@ -51,7 +51,7 @@ interface MonitoringStatus {
 }
 
 interface CompetitiveFeedData {
-  claude_insights: ClaudeInsight[]
+  ai_insights: AIInsight[]
   monitoring_strategy: any
   portfolio_assessment: any
   data_context: any
@@ -208,7 +208,7 @@ export function LiveCompetitiveDashboard({ userId, className = '' }: LiveCompeti
       <div className={`space-y-6 ${className}`}>
         <div className="text-center py-12">
           <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-white/60">Loading Claude AI competitive intelligence...</p>
+          <p className="text-white/60">Loading AI competitive intelligence...</p>
         </div>
       </div>
     )
@@ -255,7 +255,7 @@ export function LiveCompetitiveDashboard({ userId, className = '' }: LiveCompeti
           </div>
           <div>
             <h2 className="text-2xl font-light text-white">Live Competitive Intelligence</h2>
-            <p className="text-white/60 text-sm">Powered by Claude AI</p>
+            <p className="text-white/60 text-sm">Powered by AI</p>
           </div>
         </div>
         
@@ -326,25 +326,25 @@ export function LiveCompetitiveDashboard({ userId, className = '' }: LiveCompeti
           
           <div className="bg-white/5 border border-white/20 rounded p-4">
             <div className="text-white/80 text-sm leading-relaxed whitespace-pre-line">
-              {feedData.portfolio_assessment.claude_assessment}
+              {feedData.portfolio_assessment.ai_assessment}
             </div>
           </div>
         </div>
       )}
 
-      {/* Claude AI Strategic Insights */}
+      {/* AI Strategic Insights */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium text-white flex items-center space-x-2">
             <Zap className="h-5 w-5 text-white/60" />
-            <span>Claude AI Strategic Insights</span>
+            <span>AI Strategic Insights</span>
           </h3>
           <span className="text-sm text-white/60">
-            {feedData.claude_insights.length} insights • £{Math.round(feedData.data_context.total_revenue_at_risk).toLocaleString()} impact
+            {feedData.ai_insights.length} insights • £{Math.round(feedData.data_context.total_revenue_at_risk).toLocaleString()} impact
           </span>
         </div>
 
-        {feedData.claude_insights.length === 0 ? (
+        {feedData.ai_insights.length === 0 ? (
           <div className="text-center py-8 bg-white/5 border border-white/20 rounded-lg">
             <Brain className="h-12 w-12 mx-auto mb-3 text-white/30" />
             <p className="text-white/60">No strategic insights detected</p>
@@ -352,7 +352,7 @@ export function LiveCompetitiveDashboard({ userId, className = '' }: LiveCompeti
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {feedData.claude_insights.map((insight) => {
+            {feedData.ai_insights.map((insight) => {
               const isExpanded = expandedInsights.has(insight.id)
               const priorityStyle = getPriorityStyle(insight.priority)
               const priorityIcon = getPriorityIcon(insight.priority)
@@ -387,7 +387,7 @@ export function LiveCompetitiveDashboard({ userId, className = '' }: LiveCompeti
                   {/* Insight Content */}
                   <div className="p-4 space-y-3">
                     <p className="text-white/80 text-sm leading-relaxed">
-                      {insight.claude_analysis}
+                      {insight.ai_analysis}
                     </p>
                     
                     {/* Affected Products & Competitors */}
@@ -501,7 +501,7 @@ export function LiveCompetitiveDashboard({ userId, className = '' }: LiveCompeti
         <div className="mt-3 pt-3 border-t border-white/10 text-center">
           <p className="text-xs text-white/50">
             Last updated: {new Date().toLocaleTimeString()} • 
-            Powered by Claude AI & SERP API • 
+            Powered by AI & SERP API • 
             Analysis period: {feedData.data_context.analysis_period}
           </p>
         </div>

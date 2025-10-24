@@ -16,7 +16,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onBookDemo, onWatchDem
             <div className="lg:col-span-3">
               <div className="inline-flex items-center space-x-2 px-3 py-1 border border-green-400/30 bg-green-500/10 rounded mb-8">
                 <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                <span className="text-green-300 text-sm font-medium">Real-time UK alcohol market intelligence • Claude AI powered</span>
+                <span className="text-green-300 text-sm font-medium">Real-time UK alcohol market intelligence • AI powered</span>
               </div>
 
               <h1 className="text-4xl md:text-6xl font-light text-white leading-tight mb-8">

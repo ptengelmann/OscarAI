@@ -1,5 +1,5 @@
 // src/app/api/dashboard/competitive-feed/route.ts
-// ADVANCED Claude AI-powered competitive intelligence dashboard
+// ADVANCED AI-powered competitive intelligence dashboard
 
 import { NextRequest, NextResponse } from 'next/server'
 import { PostgreSQLService } from '@/lib/database-postgres'
@@ -13,12 +13,12 @@ const anthropic = new Anthropic({
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
-interface ClaudeInsight {
+interface AIInsight {
   id: string
   type: 'strategic_alert' | 'market_opportunity' | 'competitive_threat' | 'pricing_strategy'
   priority: 'critical' | 'high' | 'medium' | 'low'
   title: string
-  claude_analysis: string
+  ai_analysis: string
   strategic_recommendations: string[]
   immediate_actions: string[]
   revenue_impact_estimate: number
@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
 
     if (!process.env.ANTHROPIC_API_KEY) {
       return NextResponse.json({ 
-        error: 'Claude AI not configured',
+        error: 'AI not configured',
         message: 'ANTHROPIC_API_KEY required for competitive intelligence'
       }, { status: 500 })
     }
@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
     if (!forceRefresh) {
       const prisma = new (await import('@prisma/client')).PrismaClient()
       try {
-        const cachedInsights = await prisma.claudeInsight.findMany({
+        const cachedInsights = await prisma.aiInsight.findMany({
           where: {
             user_id: userId,
             analysis_depth: analysisDepth,
@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
           console.log(`✅ CACHE HIT: Returning ${cachedInsights.length} cached insights (${Math.round((Date.now() - cachedInsights[0].generated_at.getTime()) / 1000 / 60)} minutes old)`)
 
           // Update view count
-          await prisma.claudeInsight.updateMany({
+          await prisma.aiInsight.updateMany({
             where: { id: { in: cachedInsights.map(i => i.id) } },
             data: {
               view_count: { increment: 1 },
@@ -88,7 +88,7 @@ export async function GET(request: NextRequest) {
             type: insight.insight_type,
             priority: insight.priority,
             title: insight.title,
-            claude_analysis: insight.claude_analysis,
+            ai_analysis: insight.ai_analysis,
             strategic_recommendations: insight.strategic_recommendations,
             immediate_actions: insight.immediate_actions,
             revenue_impact_estimate: insight.revenue_impact_estimate,
@@ -109,7 +109,7 @@ export async function GET(request: NextRequest) {
           const portfolioAssessmentFromCache = {
             health_score: cachedDataContext?.competitive_coverage_percentage > 50 ? 8 :
                          cachedDataContext?.competitive_coverage_percentage > 30 ? 6 : 5,
-            claude_assessment: `Portfolio analysis based on ${cachedDataContext?.inventory_size || 0} products with ${cachedDataContext?.competitive_coverage_percentage || 0}% competitive coverage.`,
+            ai_assessment: `Portfolio analysis based on ${cachedDataContext?.inventory_size || 0} products with ${cachedDataContext?.competitive_coverage_percentage || 0}% competitive coverage.`,
             top_threats: formattedInsights.filter((i: any) => i.priority === 'critical' || i.priority === 'high').slice(0, 3).map((i: any) => i.title),
             top_opportunities: formattedInsights.filter((i: any) => i.type === 'market_opportunity').slice(0, 3).map((i: any) => i.title),
             strategic_roadmap: ['Monitor competitive pricing', 'Expand coverage', 'Optimize pricing strategy']
@@ -117,7 +117,7 @@ export async function GET(request: NextRequest) {
 
           return NextResponse.json({
             success: true,
-            claude_insights: formattedInsights,
+            ai_insights: formattedInsights,
             portfolio_assessment: portfolioAssessmentFromCache,
             cached: true,
             generated_at: cachedInsights[0].generated_at,
@@ -145,7 +145,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({
         error: 'No inventory found',
         message: 'Upload your inventory to enable competitive intelligence',
-        claude_insights: []
+        ai_insights: []
       }, { status: 400 })
     }
 
@@ -183,7 +183,7 @@ export async function GET(request: NextRequest) {
     }
 
     // ENHANCED: Advanced Claude analysis with full context
-    const claudeInsights = await generateAdvancedClaudeIntelligence(
+    const aiInsights = await generateAdvancedAIIntelligence(
       enhancedCompetitorData,
       userSKUs,
       recentAnalyses,
@@ -195,14 +195,14 @@ export async function GET(request: NextRequest) {
     const monitoringRecommendations = await generateAdvancedMonitoringStrategy(
       userSKUs,
       enhancedCompetitorData,
-      claudeInsights
+      aiInsights
     )
 
     // ENHANCED: Comprehensive portfolio assessment
     const portfolioAssessment = await generateAdvancedPortfolioAssessment(
       userSKUs,
       enhancedCompetitorData,
-      claudeInsights,
+      aiInsights,
       portfolioMetrics
     )
 
@@ -210,7 +210,7 @@ export async function GET(request: NextRequest) {
     const marketOpportunities = await detectMarketOpportunities(
       userSKUs,
       enhancedCompetitorData,
-      claudeInsights
+      aiInsights
     )
 
     // SAVE INSIGHTS TO CACHE (async, don't block response)
@@ -222,7 +222,7 @@ export async function GET(request: NextRequest) {
       categories_analyzed: [...new Set(userSKUs.map(s => s.category))].length,
       brands_analyzed: [...new Set(userSKUs.filter(s => s.brand && s.brand !== 'Unknown').map(s => s.brand))].length,
       analysis_period: '7 days',
-      total_revenue_at_risk: claudeInsights.reduce((sum, i) => sum + Math.abs(i.revenue_impact_estimate), 0),
+      total_revenue_at_risk: aiInsights.reduce((sum, i) => sum + Math.abs(i.revenue_impact_estimate), 0),
       auto_populated_data: enhancedCompetitorData.length > existingCompetitorData.length,
       new_competitive_data_points: enhancedCompetitorData.length - existingCompetitorData.length,
       portfolio_diversity_score: portfolioMetrics.diversity_score,
@@ -235,15 +235,15 @@ export async function GET(request: NextRequest) {
 
     // Save to database (don't await - fire and forget)
     const prisma = new (await import('@prisma/client')).PrismaClient()
-    Promise.all(claudeInsights.map(insight =>
-      prisma.claudeInsight.create({
+    Promise.all(aiInsights.map(insight =>
+      prisma.aiInsight.create({
         data: {
           id: insight.id,
           user_id: userId,
           insight_type: insight.type,
           priority: insight.priority,
           title: insight.title,
-          claude_analysis: insight.claude_analysis,
+          ai_analysis: insight.ai_analysis,
           strategic_recommendations: insight.strategic_recommendations,
           immediate_actions: insight.immediate_actions,
           revenue_impact_estimate: insight.revenue_impact_estimate,
@@ -259,7 +259,7 @@ export async function GET(request: NextRequest) {
         }
       })
     )).then(() => {
-      console.log(`💾 Saved ${claudeInsights.length} insights to cache (expires in 15min)`)
+      console.log(`💾 Saved ${aiInsights.length} insights to cache (expires in 15min)`)
       prisma.$disconnect()
     }).catch(err => {
       console.warn('Failed to cache insights:', err)
@@ -269,7 +269,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       analysis_depth: analysisDepth,
-      claude_insights: claudeInsights,
+      ai_insights: aiInsights,
       monitoring_strategy: monitoringRecommendations,
       portfolio_assessment: portfolioAssessment,
       market_opportunities: marketOpportunities,
@@ -286,7 +286,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Advanced Claude competitive intelligence error:', error)
     return NextResponse.json({
-      error: 'Advanced Claude AI competitive analysis failed',
+      error: 'Advanced AI competitive analysis failed',
       details: error instanceof Error ? error.message : 'Unknown error',
       fallback_available: true
     }, { status: 500 })
@@ -575,13 +575,13 @@ async function collectCompetitiveDataAdvanced(
 /**
  * ENHANCED: Advanced Claude intelligence with comprehensive analysis
  */
-async function generateAdvancedClaudeIntelligence(
+async function generateAdvancedAIIntelligence(
   competitorData: any[],
   userSKUs: any[],
   recentAnalyses: any[],
   portfolioMetrics: ProductAnalysisStrategy,
   analysisDepth: string
-): Promise<ClaudeInsight[]> {
+): Promise<AIInsight[]> {
   
   // ENHANCED: Comprehensive market analysis with advanced metrics
   const advancedMarketAnalysis = {
@@ -675,7 +675,7 @@ Return as JSON array with 4-7 insights:
     "type": "competitive_threat" | "market_opportunity" | "pricing_strategy" | "strategic_alert",
     "priority": "critical" | "high" | "medium" | "low",
     "title": "Specific actionable title with numbers",
-    "claude_analysis": "Detailed strategic analysis with specific market context and competitive dynamics",
+    "ai_analysis": "Detailed strategic analysis with specific market context and competitive dynamics",
     "strategic_recommendations": ["Long-term strategic recommendation 1", "Strategic recommendation 2"],
     "immediate_actions": ["Action 1 with specific timeline and target", "Action 2 with measurable outcome"],
     "revenue_impact_estimate": 8500,
@@ -713,7 +713,7 @@ Prioritize insights that address:
         type: insight.type || 'strategic_alert',
         priority: insight.priority || 'medium',
         title: insight.title || `Strategic Insight ${index + 1}`,
-        claude_analysis: insight.claude_analysis || '',
+        ai_analysis: insight.ai_analysis || '',
         strategic_recommendations: insight.strategic_recommendations || [],
         immediate_actions: insight.immediate_actions || [],
         revenue_impact_estimate: insight.revenue_impact_estimate || 0,
@@ -740,7 +740,7 @@ Prioritize insights that address:
 async function generateAdvancedMonitoringStrategy(
   userSKUs: any[],
   competitorData: any[],
-  insights: ClaudeInsight[]
+  insights: AIInsight[]
 ): Promise<any> {
   
   const enhancedPrompt = `As an alcohol retail competitive intelligence expert, create an advanced monitoring strategy for this portfolio:
@@ -840,7 +840,7 @@ Provide specific recommendations with £ thresholds, timing intervals, and autom
 async function generateAdvancedPortfolioAssessment(
   userSKUs: any[],
   competitorData: any[],
-  insights: ClaudeInsight[],
+  insights: AIInsight[],
   portfolioMetrics: ProductAnalysisStrategy
 ): Promise<any> {
   
@@ -908,7 +908,7 @@ Provide direct, actionable insights for C-level decision making.`
     
     return {
       health_score: calculateAdvancedHealthScore(comprehensiveMetrics),
-      claude_assessment: assessment,
+      ai_assessment: assessment,
       metrics: comprehensiveMetrics,
       strategic_priorities: {
         immediate_actions: insights.filter(i => i.priority === 'critical').length,
@@ -922,7 +922,7 @@ Provide direct, actionable insights for C-level decision making.`
     console.error('Advanced portfolio assessment failed:', error)
     return {
       health_score: 7,
-      claude_assessment: 'Advanced portfolio analysis requires Claude AI integration',
+      ai_assessment: 'Advanced portfolio analysis requires AI integration',
       metrics: comprehensiveMetrics
     }
   }
@@ -934,7 +934,7 @@ Provide direct, actionable insights for C-level decision making.`
 async function detectMarketOpportunities(
   userSKUs: any[],
   competitorData: any[],
-  insights: ClaudeInsight[]
+  insights: AIInsight[]
 ): Promise<any[]> {
   
   const opportunities: any[] = []
@@ -1116,8 +1116,8 @@ function generateAdvancedFallbackInsights(
   competitorData: any[], 
   userSKUs: any[], 
   portfolioMetrics: ProductAnalysisStrategy
-): ClaudeInsight[] {
-  const insights: ClaudeInsight[] = []
+): AIInsight[] {
+  const insights: AIInsight[] = []
   
   // Advanced overpricing analysis
   const overpriced = competitorData.filter(c => c.price_difference_percentage > 20)
@@ -1132,7 +1132,7 @@ function generateAdvancedFallbackInsights(
       type: 'competitive_threat',
       priority: 'critical',
       title: `${overpriced.length} Products Critically Overpriced - £${Math.round(revenueAtRisk).toLocaleString()} Annual Risk`,
-      claude_analysis: `Critical pricing misalignment detected across ${overpriced.length} products with average overprice of ${Math.round(overpriced.reduce((sum, c) => sum + c.price_difference_percentage, 0) / overpriced.length)}%. This represents significant competitive vulnerability with estimated annual revenue risk of £${Math.round(revenueAtRisk).toLocaleString()}.`,
+      ai_analysis: `Critical pricing misalignment detected across ${overpriced.length} products with average overprice of ${Math.round(overpriced.reduce((sum, c) => sum + c.price_difference_percentage, 0) / overpriced.length)}%. This represents significant competitive vulnerability with estimated annual revenue risk of £${Math.round(revenueAtRisk).toLocaleString()}.`,
       strategic_recommendations: [
         'Implement dynamic pricing strategy for competitive products',
         'Establish competitor price monitoring for vulnerable SKUs',
@@ -1160,7 +1160,7 @@ function generateAdvancedFallbackInsights(
       type: 'market_opportunity',
       priority: 'high',
       title: `Competitive Intelligence Gap - Only ${portfolioMetrics.competitive_coverage_percentage}% Coverage`,
-      claude_analysis: `Significant competitive intelligence gap identified. Current monitoring covers only ${portfolioMetrics.competitive_coverage_percentage}% of ${userSKUs.length} product portfolio, leaving potential revenue optimization opportunities undetected.`,
+      ai_analysis: `Significant competitive intelligence gap identified. Current monitoring covers only ${portfolioMetrics.competitive_coverage_percentage}% of ${userSKUs.length} product portfolio, leaving potential revenue optimization opportunities undetected.`,
       strategic_recommendations: [
         'Expand competitive monitoring to cover top 50% of revenue-generating products',
         'Implement automated competitor price tracking',

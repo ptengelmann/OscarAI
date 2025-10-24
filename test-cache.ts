@@ -22,7 +22,7 @@ async function main() {
   // 2. Check for any existing cached insights
   try {
     const userId = 'pedro@inventoryiq.com'
-    const cachedInsights = await prisma.claudeInsight.findMany({
+    const cachedInsights = await prisma.aiInsight.findMany({
       where: {
         user_id: userId,
         expires_at: { gte: new Date() }
@@ -50,7 +50,7 @@ async function main() {
     }
 
     // 3. Show all cached insights across all users
-    const allCached = await prisma.claudeInsight.findMany({
+    const allCached = await prisma.aiInsight.findMany({
       where: {
         expires_at: { gte: new Date() }
       },

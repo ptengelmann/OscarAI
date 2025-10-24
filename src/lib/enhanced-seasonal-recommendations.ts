@@ -23,7 +23,7 @@ interface SeasonalContext {
   daysToFathersDay: number
   isHolidaySeason: boolean
   isSummerSeason: boolean
-  detectedHolidays: string[] // Claude will detect these dynamically
+  detectedHolidays: string[] // AI will detect these dynamically
   weatherContext: string
   ukMarketEvents: string[]
   comprehensiveEvents: any[] // Full UK events calendar with alcohol intelligence
@@ -59,7 +59,7 @@ interface StrategicRecommendation {
 
 export class EnhancedSeasonalRecommendations {
 
-  // DYNAMIC HOLIDAY DETECTION - Let Claude figure out what's happening
+  // DYNAMIC HOLIDAY DETECTION - Let AI figure out what's happening
   static async detectCurrentHolidays(): Promise<string[]> {
     const now = new Date()
     const currentDate = now.toISOString().split('T')[0]
@@ -93,7 +93,7 @@ Example format: ["Valentine's Day (February 14, 7 days away)", "Six Nations Rugb
       const jsonMatch = responseText.match(/\[[\s\S]*\]/)
       if (jsonMatch) {
         const holidays = JSON.parse(jsonMatch[0])
-        console.log(`🎯 Claude detected ${holidays.length} current holidays/events:`, holidays)
+        console.log(`🎯 AI detected ${holidays.length} current holidays/events:`, holidays)
         return holidays
       }
       
@@ -180,7 +180,7 @@ Example format: ["Valentine's Day (February 14, 7 days away)", "Six Nations Rugb
       // Create comprehensive prompt with dynamic holidays
       const prompt = this.buildIntelligentSeasonalPrompt(productAnalysis, seasonalContext)
       
-      console.log('🤖 Calling Claude for intelligent seasonal strategies...')
+      console.log('🤖 Calling AI for intelligent seasonal strategies...')
       
       const response = await anthropic.messages.create({
         model: 'claude-3-5-sonnet-20241022',
@@ -193,7 +193,7 @@ Example format: ["Valentine's Day (February 14, 7 days away)", "Six Nations Rugb
       })
       
       const responseText = response.content[0].type === 'text' ? response.content[0].text : ''
-      console.log('✅ Claude response received, length:', responseText.length)
+      console.log('✅ AI response received, length:', responseText.length)
       
       // Parse strategies from response
       let strategiesData;
@@ -251,10 +251,10 @@ Example format: ["Valentine's Day (February 14, 7 days away)", "Six Nations Rugb
       })
       
       console.log(`📊 Generated ${sortedStrategies.length} intelligent seasonal strategies`)
-      return sortedStrategies // Return ALL strategies Claude generates
+      return sortedStrategies // Return ALL strategies AI generates
       
     } catch (error) {
-      console.error('❌ Claude API call failed:', error)
+      console.error('❌ AI API call failed:', error)
       return this.generateEnhancedFallbackRecommendations(productAnalysis, seasonalContext)
     }
   }
@@ -269,7 +269,7 @@ Example format: ["Valentine's Day (February 14, 7 days away)", "Six Nations Rugb
     // Format events for AI consumption
     const upcomingEventsFormatted = UKEventsCalendar.formatEventsForAI(comprehensiveEvents)
 
-    // Get dynamic holidays from Claude (as backup/supplement)
+    // Get dynamic holidays from AI (as backup/supplement)
     const detectedHolidays = await this.detectCurrentHolidays()
 
     // Get strategic fallback holidays

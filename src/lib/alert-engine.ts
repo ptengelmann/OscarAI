@@ -39,7 +39,7 @@ export interface Alert {
     compliance_notes?: string[]
   }
   ai_recommendation?: {
-    claude_analysis: string
+    ai_analysis: string
     strategic_options: string[]
     risk_assessment: string
     implementation_priority: 'immediate' | 'urgent' | 'planned'
@@ -58,7 +58,7 @@ export interface SmartAlert {
   severity: 'low' | 'medium' | 'high' | 'critical'
   message: string
   recommendation: {
-    claude_analysis: string
+    ai_analysis: string
     strategic_options: string[]
     immediate_actions: string[]
     risk_level: string
@@ -215,24 +215,24 @@ export class AlertEngine {
   }
 
   /**
-   * MAIN INTELLIGENT ALERT GENERATION with Claude AI
+   * MAIN INTELLIGENT ALERT GENERATION with AI AI
    */
   static async generateIntelligentAlerts(
     skuData: any[],
     analysisId: string,
     userEmail: string
   ): Promise<{ alerts: Alert[], smart_alerts: SmartAlert[] }> {
-    console.log(`🧠 Generating intelligent alerts with Claude for ${skuData.length} SKUs`)
+    console.log(`🧠 Generating intelligent alerts with AI for ${skuData.length} SKUs`)
     
     try {
       // Generate base alerts
       const baseAlerts = this.generateAlertsFromAnalysis(skuData, [], [])
       console.log(`📊 Generated ${baseAlerts.length} base alerts`)
       
-      // Enhance with Claude if API key available
+      // Enhance with AI if API key available
       let enhancedAlerts = baseAlerts
       if (process.env.ANTHROPIC_API_KEY) {
-        enhancedAlerts = await this.enhanceAlertsWithClaude(baseAlerts, skuData)
+        enhancedAlerts = await this.enhanceAlertsWithAI(baseAlerts, skuData)
       }
       
       // Generate smart alerts for portfolio analysis
@@ -264,7 +264,7 @@ export class AlertEngine {
   /**
    * CLAUDE AI ENHANCEMENT for alerts
    */
-  private static async enhanceAlertsWithClaude(
+  private static async enhanceAlertsWithAI(
     baseAlerts: Alert[],
     skuData: any[]
   ): Promise<Alert[]> {
@@ -274,7 +274,7 @@ export class AlertEngine {
     }
     
     try {
-      // Prepare critical alerts for Claude analysis
+      // Prepare critical alerts for AI analysis
       const criticalAlerts = baseAlerts
         .filter(alert => alert.severity === 'critical' || alert.severity === 'high')
         .slice(0, 5)
@@ -306,7 +306,7 @@ Return as JSON array:
 [
   {
     "sku": "SKU-001",
-    "claude_analysis": "Strategic analysis...",
+    "ai_analysis": "Strategic analysis...",
     "strategic_options": ["Option 1", "Option 2", "Option 3"],
     "risk_assessment": "Risk timeline analysis",
     "implementation_priority": "immediate"
@@ -324,7 +324,7 @@ Focus on alcohol industry specifics: seasonality, shelf life, compliance, compet
       
       const responseText = response.content[0].type === 'text' ? response.content[0].text : ''
       
-      // Parse Claude's response
+      // Parse AI's response
       let claudeEnhancements: any[] = []
       try {
         const jsonMatch = responseText.match(/\[[\s\S]*\]/)
@@ -332,7 +332,7 @@ Focus on alcohol industry specifics: seasonality, shelf life, compliance, compet
           claudeEnhancements = JSON.parse(jsonMatch[0])
         }
       } catch (parseError) {
-        console.error('❌ Failed to parse Claude response:', parseError)
+        console.error('❌ Failed to parse AI response:', parseError)
         return baseAlerts
       }
       
@@ -342,7 +342,7 @@ Focus on alcohol industry specifics: seasonality, shelf life, compliance, compet
         
         if (enhancement) {
           alert.ai_recommendation = {
-            claude_analysis: enhancement.claude_analysis,
+            ai_analysis: enhancement.ai_analysis,
             strategic_options: enhancement.strategic_options || [],
             risk_assessment: enhancement.risk_assessment,
             implementation_priority: enhancement.implementation_priority || 'planned'
@@ -357,11 +357,11 @@ Focus on alcohol industry specifics: seasonality, shelf life, compliance, compet
         return alert
       })
       
-      console.log(`🧠 Enhanced ${claudeEnhancements.length} alerts with Claude AI`)
+      console.log(`🧠 Enhanced ${claudeEnhancements.length} alerts with AI AI`)
       return enhancedAlerts
       
     } catch (error) {
-      console.error('❌ Claude enhancement failed:', error)
+      console.error('❌ AI enhancement failed:', error)
       return baseAlerts
     }
   }
@@ -390,7 +390,7 @@ Focus on alcohol industry specifics: seasonality, shelf life, compliance, compet
           severity: 'critical',
           message: `PORTFOLIO ALERT: ${criticalCount} critical inventory risks detected across your alcohol portfolio.`,
           recommendation: {
-            claude_analysis: `Multiple critical stockouts detected requiring immediate management attention.`,
+            ai_analysis: `Multiple critical stockouts detected requiring immediate management attention.`,
             strategic_options: [
               'Emergency inventory review meeting',
               'Activate backup supplier protocols',
@@ -436,7 +436,7 @@ Focus on alcohol industry specifics: seasonality, shelf life, compliance, compet
             severity: 'high',
             message: `CATEGORY ALERT: ${lowStockCount}/${categorySkus.length} ${category} products are critically low on stock.`,
             recommendation: {
-              claude_analysis: `Systematic supply issue detected in ${category} category - potential supplier or demand forecasting problem.`,
+              ai_analysis: `Systematic supply issue detected in ${category} category - potential supplier or demand forecasting problem.`,
               strategic_options: [
                 `Bulk emergency order for ${category} category`,
                 'Switch to alternative suppliers',
@@ -460,9 +460,9 @@ Focus on alcohol industry specifics: seasonality, shelf life, compliance, compet
         }
       })
       
-      // Generate Claude-powered portfolio insights if API available
+      // Generate AI-powered portfolio insights if API available
       if (process.env.ANTHROPIC_API_KEY && skuData.length > 10) {
-        const portfolioInsights = await this.generateClaudePortfolioInsights(skuData, analysisId)
+        const portfolioInsights = await this.generateAIPortfolioInsights(skuData, analysisId)
         smartAlerts.push(...portfolioInsights)
       }
       
@@ -478,7 +478,7 @@ Focus on alcohol industry specifics: seasonality, shelf life, compliance, compet
   /**
    * CLAUDE PORTFOLIO INSIGHTS - Advanced analysis with ACTIONABLE recommendations
    */
-  private static async generateClaudePortfolioInsights(
+  private static async generateAIPortfolioInsights(
     skuData: any[],
     analysisId: string
   ): Promise<SmartAlert[]> {
@@ -526,7 +526,7 @@ Return as JSON array (2-3 alerts max):
     "type": "cash_flow_optimization",
     "severity": "high",
     "message": "Specific alert with exact numbers and deadlines",
-    "claude_analysis": "Detailed analysis with specific recommendations",
+    "ai_analysis": "Detailed analysis with specific recommendations",
     "strategic_options": ["Specific action 1 with numbers", "Specific action 2 with timeline", "Specific action 3 with targets"],
     "immediate_actions": ["Do X by tomorrow", "Contact Y within 2 days", "Order Z units by Friday"],
     "confidence_score": 0.9
@@ -555,7 +555,7 @@ Make it sound like urgent, specific business advice with exact numbers and deadl
           severity: insight.severity || 'medium',
           message: insight.message,
           recommendation: {
-            claude_analysis: insight.claude_analysis,
+            ai_analysis: insight.ai_analysis,
             strategic_options: insight.strategic_options || [],
             immediate_actions: insight.immediate_actions || [],
             risk_level: insight.severity || 'medium',
@@ -571,7 +571,7 @@ Make it sound like urgent, specific business advice with exact numbers and deadl
       }
       
     } catch (error) {
-      console.error('❌ Claude portfolio insights failed:', error)
+      console.error('❌ AI portfolio insights failed:', error)
     }
     
     return []
@@ -736,7 +736,7 @@ Make it sound like urgent, specific business advice with exact numbers and deadl
       severity: 'medium',
       message: `Analysis complete: ${alerts.length} alerts generated for review.`,
       recommendation: {
-        claude_analysis: 'Standard alert analysis completed.',
+        ai_analysis: 'Standard alert analysis completed.',
         strategic_options: ['Review individual alerts', 'Prioritize by urgency'],
         immediate_actions: ['Check critical alerts first'],
         risk_level: 'medium',

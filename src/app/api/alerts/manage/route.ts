@@ -104,7 +104,7 @@ export async function GET(request: NextRequest) {
       features: {
         smartAlertsEnabled: true,
         realTimeAlerts: true,
-        claudeAIIntegration: !!process.env.ANTHROPIC_API_KEY
+        aiIntegration: !!process.env.ANTHROPIC_API_KEY
       },
       timestamp: new Date().toISOString()
     })
