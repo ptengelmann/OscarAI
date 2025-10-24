@@ -659,7 +659,7 @@ model AiInsight {
   insight_type                String   // 'strategic_alert' | 'market_opportunity' | 'competitive_threat' | 'pricing_strategy'
   priority                    String   // 'critical' | 'high' | 'medium' | 'low'
   title                       String
-  ai_analysis                 String   @db.Text
+  ai_analysis                 String   @db.Text @map("claude_analysis")
   strategic_recommendations   Json     // array of strings
   immediate_actions           Json     // array of strings
   revenue_impact_estimate     Float
@@ -678,5 +678,5 @@ model AiInsight {
   @@index([user_id, expires_at])
   @@index([user_id, generated_at(sort: Desc)])
   @@index([insight_type, priority])
-  @@map("ai_insights")
+  @@map("claude_insights")
 }
