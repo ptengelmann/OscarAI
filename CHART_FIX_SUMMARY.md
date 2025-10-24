@@ -3,7 +3,7 @@
 ## Problem Identified
 
 The **Live Competitive Intelligence** tab on the dashboard was experiencing intermittent rendering issues where:
-- Claude AI insight cards were always showing ✅
+- AI Engine insight cards were always showing ✅
 - Portfolio health charts were only showing **randomly/intermittently** ❌
 - No error messages or loading states were visible
 
@@ -225,7 +225,7 @@ When you test the dashboard, you should see:
 
 3. **Order**:
    - ✅ Charts appear FIRST (top of page)
-   - ✅ Claude insight cards appear AFTER charts
+   - ✅ AI insight cards appear AFTER charts
 
 4. **Error Scenarios**:
    - If API returns no `portfolio_assessment`: See yellow warning box

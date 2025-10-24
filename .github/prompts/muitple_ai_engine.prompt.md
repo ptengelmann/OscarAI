@@ -3,7 +3,7 @@ mode: agent
 ---
 Define the task to achieve, including specific requirements, constraints, and success criteria.
 
-I want to implenment a vey specific feature.Currently the cod ebase is calling a specific AI Engine, namely Claude, but I want it to be able to call deifferent ones, like GPT-4, Gemini Pro, etc.
+I want to implenment a vey specific feature.Currently the cod ebase is calling a specific AI Engine, namely Anthropic, but I want it to be able to call deifferent ones, like GPT-4, Gemini Pro, etc.
 The ideia is that the user can choose which AI engine to use, and the system will route the request to the selected engine. It will be initially via .env file or environment variable or a configuration file, wha tis most suitable for this use case, but in the future it could be a user preference stored in a database or even a drop down box in the UI.
 
 There will a variable telling what are the possible AI engines and their configuration as well as the default one.

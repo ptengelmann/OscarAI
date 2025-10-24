@@ -41,7 +41,7 @@ Beautiful, reusable UI component with:
 - ✅ **Rollback Notice** - "This action can be rolled back within 24 hours"
 
 ### 5. **Dashboard Integration** (`src/app/dashboard/page.tsx`)
-- ✅ **Live Intelligence Tab** - Action buttons on every executable Claude AI recommendation
+- ✅ **Live Intelligence Tab** - Action buttons on every executable AI Engine recommendation
 - ✅ **Smart Parsing** - Automatically detects executable actions in text:
   - "Lower price to £95" → [Execute] button
   - "Reorder 50 units" → [Execute] button
@@ -60,7 +60,7 @@ npx tsx -e "import { PrismaClient } from '@prisma/client'; const p = new PrismaC
 ### Step 2: Test Live Intelligence Dashboard
 1. **Open Browser**: http://localhost:3000/dashboard
 2. **Click "Live Intelligence" tab**
-3. **Look for [Execute] buttons** on Claude AI insights
+3. **Look for [Execute] buttons** on AI Engine insights
 4. **Click an Execute button**:
    - ✅ Confirmation modal appears with action details
    - ✅ Shows SKU, current price, new price, change %
@@ -119,7 +119,7 @@ curl -X POST http://localhost:3000/api/actions/rollback \
 ## 🎯 WHAT THIS MEANS FOR USERS
 
 ### Before (Netstock-style):
-1. See Claude AI insight: "Lower price to £95 to match competitor"
+1. See AI Engine insight: "Lower price to £95 to match competitor"
 2. Manually open Shopify admin
 3. Search for product
 4. Update price
@@ -128,7 +128,7 @@ curl -X POST http://localhost:3000/api/actions/rollback \
 7. Can't undo mistakes
 
 ### After (OscarAI Enterprise):
-1. See Claude AI insight: "Lower price to £95 to match competitor" [Execute]
+1. See AI Engine insight: "Lower price to £95 to match competitor" [Execute]
 2. **Click Execute button**
 3. Confirm details in modal
 4. ✅ **Done!** Price updated, audit logged, Shopify synced

@@ -8,14 +8,14 @@
 
 ## Executive Summary
 
-OscarAI is a sophisticated, AI-powered alcohol inventory management and competitive intelligence platform built with Next.js 14. The application combines real-time competitive scraping, Claude AI-powered insights, GPT-4 strategic recommendations, and comprehensive database management to deliver enterprise-grade inventory optimization for UK alcohol retailers.
+OscarAI is a sophisticated, AI-powered alcohol inventory management and competitive intelligence platform built with Next.js 14. The application combines real-time competitive scraping, AI Engine-powered insights, GPT-4 strategic recommendations, and comprehensive database management to deliver enterprise-grade inventory optimization for UK alcohol retailers.
 
 **Key Metrics:**
 - **Total Lines of Code:** ~22,600 lines
 - **TypeScript Files:** 65 files
 - **Database Models:** 17 Prisma models
 - **API Endpoints:** 23 routes
-- **AI Integration:** Dual AI (Claude 3.5 Sonnet + GPT-4 Turbo)
+- **AI Integration:** Dual AI (AI 3.5 Sonnet + GPT-4 Turbo)
 - **Real-time Scraping:** SERP API + Puppeteer
 - **Competitive Intelligence:** 20+ UK retailers monitored
 
@@ -39,8 +39,8 @@ OscarAI is a sophisticated, AI-powered alcohol inventory management and competit
 
 ### 1.3 AI Services (PRIMARY DIFFERENTIATOR)
 
-#### Claude AI (Anthropic)
-- **Model:** claude-3-5-sonnet-20241022
+#### AI Engine (Anthropic)
+- **Model:** Anthropic Sonnet Model
 - **Usage:**
   - Smart alert generation with strategic recommendations
   - Portfolio-level insights and risk assessment
@@ -138,13 +138,13 @@ OscarAI is a sophisticated, AI-powered alcohol inventory management and competit
 ├── contexts/
 │   └── UserContext.tsx       # User state management
 ├── lib/                      # Core business logic (12 files)
-│   ├── alert-engine.ts       # Claude-powered alerts
+│   ├── alert-engine.ts       # AI-powered alerts
 │   ├── api-auth.ts           # API authentication
 │   ├── auth.ts               # Authentication utilities
 │   ├── competitor-intelligence.ts # Competitive analysis
 │   ├── database-postgres.ts  # Database service layer
 │   ├── email.ts              # Email notifications
-│   ├── enhanced-seasonal-recommendations.ts # Claude seasonal AI
+│   ├── enhanced-seasonal-recommendations.ts # AI seasonal AI
 │   ├── gpt-commerce-intelligence.ts # GPT-4 intelligence
 │   ├── models.ts             # Data models
 │   ├── rate-limiter.ts       # Rate limiting
@@ -172,7 +172,7 @@ User Upload CSV
 │ 2. REAL Competitive Intelligence         │
 │    - SERP API scraping (top 5 products) │
 │    - 3 retailers per product             │
-│    - Claude AI competitive insights      │
+│    - AI Engine competitive insights      │
 │    - Rate-limited (1 sec between calls)  │
 └─────────────────────────────────────────┘
     ↓
@@ -184,7 +184,7 @@ User Upload CSV
 └─────────────────────────────────────────┘
     ↓
 ┌─────────────────────────────────────────┐
-│ 4. Claude Seasonal Strategies            │
+│ 4. AI Seasonal Strategies            │
 │    - Dynamic holiday detection           │
 │    - Weather-responsive strategies       │
 │    - UK market event alignment           │
@@ -192,7 +192,7 @@ User Upload CSV
 └─────────────────────────────────────────┘
     ↓
 ┌─────────────────────────────────────────┐
-│ 5. Claude Smart Alerts                   │
+│ 5. AI Smart Alerts                   │
 │    - Portfolio-level risk assessment     │
 │    - Category concentration analysis     │
 │    - Strategic recommendations           │
@@ -265,7 +265,7 @@ Dashboard Display (Live Updates)
 
 #### SmartAlert (smart_alerts)
 ```prisma
-- AI-Generated: Claude-powered portfolio insights
+- AI-Generated: AI-powered portfolio insights
 - Content: type, severity, message, recommendation (JSON)
 - Automation: auto_generated, requires_human, auto_resolved
 - Escalation: escalation_path (JSON)
@@ -365,7 +365,7 @@ Dashboard Display (Live Updates)
 - **Alcohol Type Detection:** Recognizes 80+ alcohol indicators
 - **Brand Extraction:** AI-powered brand name identification
 - **UK Retailer Focus:** 9 major UK alcohol retailers
-- **AI Insights:** Claude-powered competitive analysis
+- **AI Insights:** AI-powered competitive analysis
 - **Real-time Updates:** Live competitive feed
 - **Relevance Scoring:** Matches products with 20%+ accuracy threshold
 - **Promotion Detection:** Identifies sales, discounts, special offers
@@ -400,7 +400,7 @@ Dashboard Display (Live Updates)
 
 ### 4.3 AI-Powered Smart Alerts ✅ COMPLETE
 
-**Status:** Production-ready with Claude integration
+**Status:** Production-ready with AI integration
 
 **Files:**
 - `/src/lib/alert-engine.ts` (756 lines)
@@ -428,7 +428,7 @@ Dashboard Display (Live Updates)
 
 4. **Portfolio Risk Alerts** (Critical)
    - Triggered: 3+ critical alerts
-   - Claude AI analysis of systemic issues
+   - AI Engine analysis of systemic issues
    - Emergency protocols recommended
 
 5. **Category Concentration Alerts** (High)
@@ -436,7 +436,7 @@ Dashboard Display (Live Updates)
    - Supplier issue detection
    - Bulk ordering recommendations
 
-**Claude AI Enhancement:**
+**AI Engine Enhancement:**
 - Analyzes top 5 critical/high alerts
 - Generates strategic action options (3-4 per alert)
 - Risk timeline assessment
@@ -465,7 +465,7 @@ Dashboard Display (Live Updates)
 
 **Capabilities:**
 
-**1. Dynamic Holiday Detection (Claude AI)**
+**1. Dynamic Holiday Detection (AI Engine)**
 - Real-time UK holiday/event detection
 - Considers: Major holidays, sporting events, cultural celebrations, weather trends
 - Examples: Six Nations Rugby, Wimbledon, Eurovision, Edinburgh Festival
@@ -497,7 +497,7 @@ Dashboard Display (Live Updates)
 - `event_targeting` - Market event strategies
 - `weather_responsive` - Weather-driven promotions
 
-**5. Claude AI Strategy Generation:**
+**5. AI Engine Strategy Generation:**
 - 6-12 strategies per analysis (not artificially limited)
 - Specific holiday connections
 - Revenue impact estimates (£600-£3500)
@@ -513,7 +513,7 @@ Dashboard Display (Live Updates)
 - Market event strategies for UK retail calendar
 - Weather-responsive strategies for current season
 - Intelligent clearance strategies for slow-moving inventory
-- Maintains quality even without Claude API
+- Maintains quality even without AI API
 
 **Quality:** ⭐⭐⭐⭐⭐ Excellent
 
@@ -656,7 +656,7 @@ Dashboard Display (Live Updates)
   - 5-minute auto-refresh interval when active
 
 **Competitive Feed:**
-- Real-time Claude insights
+- Real-time AI insights
 - Priority-based alert display
 - Revenue impact estimates
 - Affected products tracking
@@ -787,9 +787,9 @@ Dashboard Display (Live Updates)
 
 ## 5. AI Capabilities Deep Dive
 
-### 5.1 Claude AI (Anthropic) Integration
+### 5.1 AI Engine (Anthropic) Integration
 
-**Model:** claude-3-5-sonnet-20241022
+**Model:** Anthropic Sonnet Model
 
 **Usage Breakdown:**
 
@@ -806,7 +806,7 @@ Dashboard Display (Live Updates)
    - **Cost per Call:** ~$0.003-0.005
 
 2. **Portfolio Insights**
-   - **Function:** `generateClaudePortfolioInsights()`
+   - **Function:** `generateAIPortfolioInsights()`
    - **Prompt Size:** ~800-1200 tokens (includes full portfolio analysis)
    - **Response Size:** ~1500-2000 tokens
    - **Features:**
@@ -853,7 +853,7 @@ Dashboard Display (Live Updates)
      - Urgency level and confidence
    - **Cost per Call:** ~$0.003-0.005
 
-**Total Claude Cost per Analysis:** ~$0.02-0.03
+**Total AI Cost per Analysis:** ~$0.02-0.03
 
 **Temperature Settings:**
 - Alerts: 0.3 (focused, precise)
@@ -908,14 +908,14 @@ Dashboard Display (Live Updates)
 
 **Total GPT-4 Cost per Analysis:** ~$0.08-0.12 (if all features used)
 
-**Note:** GPT-4 appears to be secondary to Claude in current implementation. Primary AI is Claude for most features.
+**Note:** GPT-4 appears to be secondary to AI in current implementation. Primary AI is AI for most features.
 
 ---
 
 ### 5.3 Combined AI Cost Analysis
 
 **Per Analysis Cost Breakdown:**
-- Claude AI: $0.02-0.03
+- AI Engine: $0.02-0.03
 - GPT-4: $0.08-0.12 (if fully utilized)
 - SERP API: $0.15-0.50 (5 products × 3 searches)
 - **Total:** $0.25-0.65 per analysis
@@ -925,7 +925,7 @@ Dashboard Display (Live Updates)
 2. Batch processing for multiple SKUs
 3. Fallback to rule-based logic if AI fails
 4. Rate limiting to prevent excessive API calls
-5. Strategic use of Claude (cheaper) over GPT-4 where possible
+5. Strategic use of AI (cheaper) over GPT-4 where possible
 
 **Monthly Cost Estimates (100 analyses):**
 - AI Services: $3-15
@@ -1061,8 +1061,8 @@ Dashboard Display (Live Updates)
 
 1. **CSV Upload & Parsing** - ⭐⭐⭐⭐⭐
 2. **Real-Time Competitive Intelligence** - ⭐⭐⭐⭐⭐
-3. **Claude Smart Alerts** - ⭐⭐⭐⭐⭐
-4. **Seasonal Recommendations (Claude)** - ⭐⭐⭐⭐⭐
+3. **AI Smart Alerts** - ⭐⭐⭐⭐⭐
+4. **Seasonal Recommendations (AI)** - ⭐⭐⭐⭐⭐
 5. **GPT-4 Commerce Intelligence** - ⭐⭐⭐⭐⭐
 6. **User Authentication** - ⭐⭐⭐⭐⭐
 7. **Rate Limiting** - ⭐⭐⭐⭐⭐
@@ -1340,7 +1340,7 @@ EMAIL_PASSWORD=...
 **Current Bottlenecks:**
 
 1. **AI API Costs:**
-   - Claude: $0.02-0.03 per analysis
+   - AI: $0.02-0.03 per analysis
    - GPT-4: $0.08-0.12 per analysis
    - SERP API: $0.15-0.50 per analysis
    - **Total:** $0.25-0.65 per analysis
@@ -1561,7 +1561,7 @@ EMAIL_PASSWORD=...
 ### 9.5 Cost Optimization Strategy
 
 **Current Costs (100 analyses/month):**
-- Claude AI: $2-3
+- AI Engine: $2-3
 - GPT-4: $8-12
 - SERP API: $15-50
 - **Total:** $25-65/month
@@ -1570,7 +1570,7 @@ EMAIL_PASSWORD=...
 
 1. **Implement Tiered Plans**
    - **Free:** Basic alerts only (no AI)
-   - **Starter ($49/month):** Claude alerts + basic competitive intelligence (3 products)
+   - **Starter ($49/month):** AI alerts + basic competitive intelligence (3 products)
    - **Professional ($149/month):** Full AI suite + 5 products competitive intelligence
    - **Enterprise ($499/month):** Unlimited AI + real-time competitive monitoring
 
@@ -1580,9 +1580,9 @@ EMAIL_PASSWORD=...
    - Portfolio insights: 1-hour cache
 
 3. **Optimize AI Usage**
-   - Use Claude (cheaper) for most features
+   - Use AI (cheaper) for most features
    - Use GPT-4 only for creative strategies
-   - Implement prompt caching (Claude supports this)
+   - Implement prompt caching (AI supports this)
 
 4. **Background Processing**
    - Move competitive scraping to background jobs
@@ -1590,7 +1590,7 @@ EMAIL_PASSWORD=...
    - Batch multiple users' analyses
 
 **Projected Costs with Optimization (1000 analyses/month):**
-- Claude AI: $20-30
+- AI Engine: $20-30
 - GPT-4: $50-80 (used selectively)
 - SERP API: $50-150 (with caching)
 - **Total:** $120-260/month (vs $2,500-6,500 without optimization)
@@ -1606,7 +1606,7 @@ EMAIL_PASSWORD=...
 OscarAI is a **sophisticated, AI-powered alcohol inventory management platform** with strong technical foundations and innovative features. The application demonstrates advanced AI integration, real-time competitive intelligence, and comprehensive database design.
 
 **Strengths:**
-- Excellent AI integration (dual Claude + GPT-4)
+- Excellent AI integration (dual AI + GPT-4)
 - Real competitive intelligence via SERP API
 - Comprehensive database schema (17 models)
 - Strong authentication and rate limiting
@@ -1648,7 +1648,7 @@ OscarAI is a **sophisticated, AI-powered alcohol inventory management platform**
 - UK market focus with localized features
 
 **Technical Differentiation:**
-- Dual AI approach (Claude + GPT-4)
+- Dual AI approach (AI + GPT-4)
 - Real-time SERP API scraping
 - Dynamic holiday detection
 - Portfolio-level insights
@@ -1703,7 +1703,7 @@ OscarAI is a **sophisticated, AI-powered alcohol inventory management platform**
 5. Test CSV upload with sample data
 
 **Code Review Focus:**
-1. `/src/lib/alert-engine.ts` - Claude smart alerts
+1. `/src/lib/alert-engine.ts` - AI smart alerts
 2. `/src/lib/real-competitive-scraping.ts` - SERP API integration
 3. `/src/lib/enhanced-seasonal-recommendations.ts` - Dynamic strategies
 4. `/src/app/api/analyze/route.ts` - Main analysis engine
@@ -1746,13 +1746,13 @@ OscarAI is a **sophisticated, AI-powered alcohol inventory management platform**
 23. `/api/users/settings/route.ts`
 
 ### Library Files (12 total)
-1. `/lib/alert-engine.ts` (756 lines) - Claude smart alerts
+1. `/lib/alert-engine.ts` (756 lines) - AI smart alerts
 2. `/lib/api-auth.ts` - API authentication utilities
 3. `/lib/auth.ts` (136 lines) - Authentication and JWT
 4. `/lib/competitor-intelligence.ts` - Competitive analysis
 5. `/lib/database-postgres.ts` - Database service layer
 6. `/lib/email.ts` - Email notifications
-7. `/lib/enhanced-seasonal-recommendations.ts` (828 lines) - Claude seasonal strategies
+7. `/lib/enhanced-seasonal-recommendations.ts` (828 lines) - AI seasonal strategies
 8. `/lib/gpt-commerce-intelligence.ts` (765 lines) - GPT-4 intelligence
 9. `/lib/models.ts` - Data models
 10. `/lib/rate-limiter.ts` (130 lines) - Rate limiting
@@ -1821,7 +1821,7 @@ MAX_CONCURRENT_SCRAPES=3
 | **Database** | PostgreSQL | 15+ | Primary database |
 | | Prisma | 5.22.0 | ORM |
 | | Redis | 7 | Caching (configured) |
-| **AI** | Claude (Anthropic) | 3.5 Sonnet | Smart alerts, insights |
+| **AI** | AI (Anthropic) | 3.5 Sonnet | Smart alerts, insights |
 | | GPT-4 (OpenAI) | Turbo | Creative strategies |
 | **Web Scraping** | SERP API | - | Competitive intelligence |
 | | Puppeteer | 22.15.0 | Backup scraping |

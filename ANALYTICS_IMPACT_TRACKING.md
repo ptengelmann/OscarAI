@@ -255,7 +255,7 @@ async function calibrateAIModel() {
 
     console.log(`${bucket} confidence actions: ${(accuracy * 100).toFixed(1)}% accurate`)
 
-    // Feed this back to Claude for better predictions
+    // Feed this back to AI for better predictions
     // E.g., "Your 80%+ confidence predictions were 92% accurate - keep it up!"
     // or "Your 60-80% predictions were only 65% accurate - be more conservative"
   }
