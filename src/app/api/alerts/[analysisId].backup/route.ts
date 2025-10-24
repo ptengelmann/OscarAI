@@ -32,7 +32,7 @@ interface AlcoholContext {
 }
 
 interface AIRecommendation {
-  claude_analysis: string
+  ai_analysis: string
   strategic_options: string[]
   risk_assessment: string
   implementation_priority: string
@@ -233,7 +233,7 @@ export async function GET(
       },
       // CRITICAL: This is what makes smart alerts special
       ai_recommendation: {
-        claude_analysis: alert.recommendation?.claude_analysis || 'AI analysis not available',
+        ai_analysis: alert.recommendation?.ai_analysis || 'AI analysis not available',
         strategic_options: alert.recommendation?.strategic_options || [],
         risk_assessment: `Risk Level: ${alert.recommendation?.risk_level || 'medium'}`,
         implementation_priority: alert.requires_human ? 'immediate' : 'planned'

@@ -182,7 +182,7 @@ export async function GET(request: NextRequest) {
       console.log(`📈 Coverage improved: ${((enhancedCompetitorData.length / userSKUs.length) * 100).toFixed(1)}%`)
     }
 
-    // ENHANCED: Advanced Claude analysis with full context
+    // ENHANCED: Advanced AI analysis with full context
     const aiInsights = await generateAdvancedAIIntelligence(
       enhancedCompetitorData,
       userSKUs,
@@ -280,11 +280,11 @@ export async function GET(request: NextRequest) {
       generated_at: generatedAt.toISOString(),
       expires_at: expiresAt.toISOString(),
       cached: false,
-      powered_by: 'claude_ai_advanced_competitive_intelligence'
+      powered_by: 'ai_advanced_competitive_intelligence'
     })
 
   } catch (error) {
-    console.error('Advanced Claude competitive intelligence error:', error)
+    console.error('Advanced AI competitive intelligence error:', error)
     return NextResponse.json({
       error: 'Advanced AI competitive analysis failed',
       details: error instanceof Error ? error.message : 'Unknown error',
@@ -573,7 +573,7 @@ async function collectCompetitiveDataAdvanced(
 }
 
 /**
- * ENHANCED: Advanced Claude intelligence with comprehensive analysis
+ * ENHANCED: Advanced AI intelligence with comprehensive analysis
  */
 async function generateAdvancedAIIntelligence(
   competitorData: any[],
@@ -709,7 +709,7 @@ Prioritize insights that address:
       const rawInsights = JSON.parse(jsonMatch[0])
       
       return rawInsights.map((insight: any, index: number) => ({
-        id: `claude-insight-${Date.now()}-${index}`,
+        id: `ai-insight-${Date.now()}-${index}`,
         type: insight.type || 'strategic_alert',
         priority: insight.priority || 'medium',
         title: insight.title || `Strategic Insight ${index + 1}`,
@@ -727,7 +727,7 @@ Prioritize insights that address:
     }
 
   } catch (error) {
-    console.error('Advanced Claude competitive analysis failed:', error)
+    console.error('Advanced AI competitive analysis failed:', error)
   }
 
   // Enhanced fallback insights
@@ -793,7 +793,7 @@ Provide specific recommendations with £ thresholds, timing intervals, and autom
       .slice(0, 15)
     
     return {
-      claude_strategy: analysis,
+      ai_strategy: analysis,
       priority_products: prioritizedProducts.map(p => ({
         sku: p.sku_code,
         priority_score: Math.round(p.priority_score),
@@ -826,7 +826,7 @@ Provide specific recommendations with £ thresholds, timing intervals, and autom
   } catch (error) {
     console.error('Advanced monitoring strategy failed:', error)
     return {
-      claude_strategy: 'Monitor high-value, competitively vulnerable products more frequently',
+      ai_strategy: 'Monitor high-value, competitively vulnerable products more frequently',
       priority_products: userSKUs.slice(0, 15).map(s => ({ sku: s.sku_code, priority_score: 1000 })),
       recommended_frequency: 'Daily for top 15, weekly for others',
       alert_thresholds: { critical_price_change: 10 }

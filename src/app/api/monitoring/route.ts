@@ -1,5 +1,5 @@
 // src/app/api/monitoring/route.ts
-// Enhanced monitoring with Claude AI product prioritization
+// Enhanced monitoring with AI product prioritization
 
 import { NextRequest, NextResponse } from 'next/server'
 import { RealCompetitiveScraping } from '@/lib/real-competitive-scraping'
@@ -21,7 +21,7 @@ interface MonitoringRequest {
   intervalMinutes?: number
   maxRetailersPerCheck?: number
   maxProductsToMonitor?: number
-  useClaudeOptimization?: boolean
+  useAIOptimization?: boolean
 }
 
 // Start monitoring for a user's products
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       intervalMinutes = 240, // 4 hours default (more reasonable)
       maxRetailersPerCheck = 3,
       maxProductsToMonitor = 15, // Reasonable limit
-      useClaudeOptimization = true
+      useAIOptimization = true
     }: MonitoringRequest = await request.json()
     
     if (!userId) {
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       console.log(`Using provided products: ${productsToMonitor.length}`)
     } else {
       // INTELLIGENT PRODUCT SELECTION: Get all user's inventory
-      console.log(`🧠 Using Claude AI to select priority products from full inventory`)
+      console.log(`🧠 Using AI to select priority products from full inventory`)
       const allUserSKUs = await PostgreSQLService.getUserSKUs(userId)
       
       if (allUserSKUs.length === 0) {
@@ -64,9 +64,9 @@ export async function POST(request: NextRequest) {
       
       console.log(`Found ${allUserSKUs.length} total SKUs in inventory`)
       
-      if (useClaudeOptimization && process.env.ANTHROPIC_API_KEY) {
-        // Use Claude AI to intelligently select priority products
-        productsToMonitor = await selectPriorityProductsWithClaude(
+      if (useAIOptimization && process.env.ANTHROPIC_API_KEY) {
+        // Use AI to intelligently select priority products
+        productsToMonitor = await selectPriorityProductsWithAI(
           allUserSKUs, 
           maxProductsToMonitor,
           userId
@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
       startedAt: new Date(),
       isActive: true,
       priorityProducts: productsToMonitor, // Store the prioritized products
-      selectionMethod: useClaudeOptimization ? 'claude_ai' : 'basic_revenue',
+      selectionMethod: useAIOptimization ? 'claude_ai' : 'basic_revenue',
       totalInventorySize: (await PostgreSQLService.getUserSKUs(userId)).length
     })
 
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
       selection_details: {
         total_inventory_products: (await PostgreSQLService.getUserSKUs(userId)).length,
         selected_for_monitoring: productsToMonitor.length,
-        selection_method: useClaudeOptimization ? 'Claude AI Optimization' : 'Basic Revenue Ranking',
+        selection_method: useAIOptimization ? 'Claude AI Optimization' : 'Basic Revenue Ranking',
         priority_products: productsToMonitor.slice(0, 5).map(p => ({
           sku: p.sku || p.sku_code,
           product: p.product_name || p.product || 'Unknown',
@@ -148,7 +148,7 @@ export async function POST(request: NextRequest) {
  * CLAUDE AI INTELLIGENT PRODUCT SELECTION
  * Analyzes entire inventory and selects most strategically important products
  */
-async function selectPriorityProductsWithClaude(
+async function selectPriorityProductsWithAI(
   allSKUs: any[], 
   maxProducts: number,
   userId: string
