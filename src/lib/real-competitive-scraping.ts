@@ -849,14 +849,14 @@ Provide JSON insights:
   static async healthCheck(): Promise<{
     status: 'healthy' | 'degraded' | 'down'
     serp_api: boolean
-    claude_api: boolean
+    ai_api: boolean
     response_time_ms: number
   }> {
     const startTime = Date.now()
     
     let status: 'healthy' | 'degraded' | 'down' = 'healthy'
     let serp_api = false
-    let claude_api = false
+    let ai_api = false
     
     try {
       if (this.SERP_API_KEY) {
@@ -864,10 +864,10 @@ Provide JSON insights:
         serp_api = testResults.length > 0
       }
       
-      claude_api = Boolean(process.env.ANTHROPIC_API_KEY)
+      ai_api = Boolean(process.env.ANTHROPIC_API_KEY)
       
       if (!serp_api) status = 'degraded'
-      if (!serp_api && !claude_api) status = 'down'
+      if (!serp_api && !ai_api) status = 'down'
       
     } catch (error) {
       status = 'down'
@@ -876,7 +876,7 @@ Provide JSON insights:
     return {
       status,
       serp_api,
-      claude_api,
+      ai_api,
       response_time_ms: Date.now() - startTime
     }
   }

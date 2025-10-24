@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
       startedAt: new Date(),
       isActive: true,
       priorityProducts: productsToMonitor, // Store the prioritized products
-      selectionMethod: useAIOptimization ? 'claude_ai' : 'basic_revenue',
+      selectionMethod: useAIOptimization ? 'ai_engine' : 'basic_revenue',
       totalInventorySize: (await PostgreSQLService.getUserSKUs(userId)).length
     })
 
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
       selection_details: {
         total_inventory_products: (await PostgreSQLService.getUserSKUs(userId)).length,
         selected_for_monitoring: productsToMonitor.length,
-        selection_method: useAIOptimization ? 'Claude AI Optimization' : 'Basic Revenue Ranking',
+        selection_method: useAIOptimization ? 'AI Optimization' : 'Basic Revenue Ranking',
         priority_products: productsToMonitor.slice(0, 5).map(p => ({
           sku: p.sku || p.sku_code,
           product: p.product_name || p.product || 'Unknown',
@@ -145,7 +145,7 @@ export async function POST(request: NextRequest) {
 }
 
 /**
- * CLAUDE AI INTELLIGENT PRODUCT SELECTION
+ * AI INTELLIGENT PRODUCT SELECTION
  * Analyzes entire inventory and selects most strategically important products
  */
 async function selectPriorityProductsWithAI(
@@ -155,9 +155,9 @@ async function selectPriorityProductsWithAI(
 ): Promise<any[]> {
   
   try {
-    console.log(`🧠 Claude AI analyzing ${allSKUs.length} products for strategic monitoring`)
+    console.log(`🧠 AI analyzing ${allSKUs.length} products for strategic monitoring`)
     
-    // Prepare portfolio analysis for Claude
+    // Prepare portfolio analysis for AI
     const portfolioAnalysis = {
       total_products: allSKUs.length,
       categories: [...new Set(allSKUs.map(s => s.category))],
@@ -170,10 +170,10 @@ async function selectPriorityProductsWithAI(
         fast_movers: allSKUs.filter(s => s.weekly_sales > 3).length
       },
       
-      // Product samples for Claude to analyze
+      // Product samples for AI to analyze
       sample_products: allSKUs
         .sort((a, b) => (b.price * (b.weekly_sales || 0)) - (a.price * (a.weekly_sales || 0)))
-        .slice(0, 25) // Top 25 by revenue for Claude to analyze
+        .slice(0, 25) // Top 25 by revenue for AI to analyze
         .map(sku => ({
           sku: sku.sku_code,
           product_name: sku.product_name || 'Unknown',
@@ -226,10 +226,10 @@ Focus on products where competitive intelligence will have the highest business 
     const jsonMatch = responseText.match(/\[[\s\S]*\]/)
     
     if (jsonMatch) {
-      const claudeSelections = JSON.parse(jsonMatch[0])
+      const aiSelections = JSON.parse(jsonMatch[0])
       
-      // Map Claude's selections back to actual SKU data
-      const prioritizedProducts = claudeSelections
+      // Map AI selections back to actual SKU data
+      const prioritizedProducts = aiSelections
         .map((selection: any) => {
           const matchingSKU = allSKUs.find(sku => 
             sku.sku_code === selection.sku || 
@@ -240,8 +240,8 @@ Focus on products where competitive intelligence will have the highest business 
           if (matchingSKU) {
             return {
               ...matchingSKU,
-              claude_priority: selection.strategic_priority,
-              claude_reasoning: selection.selection_reasoning,
+              ai_priority: selection.strategic_priority,
+              ai_reasoning: selection.selection_reasoning,
               revenue_priority_score: selection.revenue_impact,
               competitive_risk: selection.competitive_risk_level,
               monitoring_urgency: selection.monitoring_urgency,
@@ -253,15 +253,15 @@ Focus on products where competitive intelligence will have the highest business 
         .filter(Boolean)
         .slice(0, maxProducts)
       
-      console.log(`✅ Claude selected ${prioritizedProducts.length} strategic products`)
+      console.log(`✅ AI selected ${prioritizedProducts.length} strategic products`)
       return prioritizedProducts
       
     } else {
-      throw new Error('Failed to parse Claude AI product selection')
+      throw new Error('Failed to parse AI product selection')
     }
     
   } catch (error) {
-    console.error('❌ Claude product selection failed:', error)
+    console.error('❌ AI product selection failed:', error)
     
     // Fallback to basic selection
     console.log('🔄 Falling back to basic product selection')
@@ -270,7 +270,7 @@ Focus on products where competitive intelligence will have the highest business 
 }
 
 /**
- * BASIC PRODUCT PRIORITIZATION (fallback when Claude unavailable)
+ * BASIC PRODUCT PRIORITIZATION (fallback when AI unavailable)
  */
 function selectPriorityProductsBasic(allSKUs: any[], maxProducts: number): any[] {
   return allSKUs

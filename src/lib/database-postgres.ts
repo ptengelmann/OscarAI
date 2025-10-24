@@ -460,7 +460,7 @@ export class PostgreSQLService {
             auto_resolve_conditions: alert.auto_resolve_conditions || null,
             escalate_after_hours: alert.escalate_if_not_resolved_hours || null,
 
-            // Claude AI analysis
+            // AI analysis
             ai_insight: alert.ai_analysis || null,
 
             // Status flags

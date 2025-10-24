@@ -262,7 +262,7 @@ export class AlertEngine {
   }
 
   /**
-   * CLAUDE AI ENHANCEMENT for alerts
+   * AI ENHANCEMENT for alerts
    */
   private static async enhanceAlertsWithAI(
     baseAlerts: Alert[],
@@ -325,11 +325,11 @@ Focus on alcohol industry specifics: seasonality, shelf life, compliance, compet
       const responseText = response.content[0].type === 'text' ? response.content[0].text : ''
       
       // Parse AI's response
-      let claudeEnhancements: any[] = []
+      let aiEnhancements: any[] = []
       try {
         const jsonMatch = responseText.match(/\[[\s\S]*\]/)
         if (jsonMatch) {
-          claudeEnhancements = JSON.parse(jsonMatch[0])
+          aiEnhancements = JSON.parse(jsonMatch[0])
         }
       } catch (parseError) {
         console.error('❌ Failed to parse AI response:', parseError)
@@ -338,7 +338,7 @@ Focus on alcohol industry specifics: seasonality, shelf life, compliance, compet
       
       // Apply enhancements to base alerts
       const enhancedAlerts = baseAlerts.map(alert => {
-        const enhancement = claudeEnhancements.find(e => e.sku === alert.sku)
+        const enhancement = aiEnhancements.find(e => e.sku === alert.sku)
         
         if (enhancement) {
           alert.ai_recommendation = {
@@ -357,7 +357,7 @@ Focus on alcohol industry specifics: seasonality, shelf life, compliance, compet
         return alert
       })
       
-      console.log(`🧠 Enhanced ${claudeEnhancements.length} alerts with AI AI`)
+      console.log(`🧠 Enhanced ${aiEnhancements.length} alerts with AI AI`)
       return enhancedAlerts
       
     } catch (error) {
@@ -476,7 +476,7 @@ Focus on alcohol industry specifics: seasonality, shelf life, compliance, compet
   }
 
   /**
-   * CLAUDE PORTFOLIO INSIGHTS - Advanced analysis with ACTIONABLE recommendations
+   * AI PORTFOLIO INSIGHTS - Advanced analysis with ACTIONABLE recommendations
    */
   private static async generateAIPortfolioInsights(
     skuData: any[],
@@ -549,7 +549,7 @@ Make it sound like urgent, specific business advice with exact numbers and deadl
         const insights = JSON.parse(jsonMatch[0])
         
         return insights.map((insight: any, index: number) => ({
-          id: `claude-portfolio-${Date.now()}-${index}`,
+          id: `ai-portfolio-${Date.now()}-${index}`,
           analysis_id: analysisId,
           type: insight.type || 'portfolio_insight',
           severity: insight.severity || 'medium',

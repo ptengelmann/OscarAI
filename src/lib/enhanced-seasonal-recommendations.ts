@@ -221,7 +221,7 @@ Example format: ["Valentine's Day (February 14, 7 days away)", "Six Nations Rugb
       
       // Transform strategies with enhanced metadata
       const transformedStrategies = strategies.map((strategy: any, index: number) => ({
-        id: `claude-seasonal-${Date.now()}-${index}`,
+        id: `ai-seasonal-${Date.now()}-${index}`,
         type: strategy.type || 'seasonal_promotion',
         title: strategy.title || `Seasonal Strategy ${index + 1}`,
         description: strategy.description || '',
