@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 
 describe('ai-engines-config (unit)', () => {
-  const configPath = path.resolve(process.cwd(), 'ai-engines.config.json')
+  const configPath = path.resolve(process.cwd(), 'config', 'ai-engines.config.json')
   let originalEnv: string | undefined
   let configBackup: string | undefined
 

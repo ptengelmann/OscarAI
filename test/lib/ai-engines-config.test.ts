@@ -1,7 +1,7 @@
 import path from 'path'
 
 describe('AI engines config loader', () => {
-  const CONFIG_PATH = path.resolve(process.cwd(), 'ai-engines.config.json')
+  const CONFIG_PATH = path.resolve(process.cwd(), 'config', 'ai-engines.config.json')
 
   beforeEach(() => {
     // set env var to ensure loader picks up the known file

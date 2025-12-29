@@ -1,4 +1,5 @@
 // src/lib/database-postgres.ts - COMPLETE VERSION with Smart Alerts
+import '../lib/config'
 import { PrismaClient } from '@prisma/client'
 import type { AlcoholSKU, CompetitorPrice } from '@/types'
 

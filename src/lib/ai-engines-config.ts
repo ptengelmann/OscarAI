@@ -17,7 +17,7 @@ const AIEnginesConfigSchema = z.object({
 export type EngineEntry = z.infer<typeof EngineEntrySchema>
 export type AIEnginesConfig = z.infer<typeof AIEnginesConfigSchema>
 
-const DEFAULT_CONFIG_PATH = path.resolve(process.cwd(), 'ai-engines.config.json')
+const DEFAULT_CONFIG_PATH = path.resolve(process.cwd(), 'config', 'ai-engines.config.json')
 
 /**
  * Load AI engines config from a file pointed to by process.env.AI_ENGINES_CONFIG
