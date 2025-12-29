@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: signalix-postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=signalix
+      - POSTGRES_PASSWORD=signalix_passwd
+      - POSTGRES_DB=signalix_db
+    ports:
+      - "5432:5432"
+    volumes:
+      # CHANGED: Mount to the parent directory for Postgres 18 compatibility
+      - signalix_data:/var/lib/postgresql:Z
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:Z
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: signalix-admin
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin@signalix.com
+      - PGADMIN_DEFAULT_PASSWORD=signalix_passwd
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+volumes:
+  signalix_data:
