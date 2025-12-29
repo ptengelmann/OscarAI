@@ -13,7 +13,7 @@ describe('AI engines config error cases and helpers', () => {
   it('throws when file is missing', () => {
     process.env.AI_ENGINES_CONFIG = path.resolve(process.cwd(), 'does-not-exist.json')
     jest.resetModules()
-    const { loadAIEnginesConfig } = require('../lib/ai-engines-config')
+    const { loadAIEnginesConfig } = require('@/lib/ai-engines-config')
     expect(() => loadAIEnginesConfig()).toThrow(/not found/)
   })
 
@@ -21,7 +21,7 @@ describe('AI engines config error cases and helpers', () => {
     fs.writeFileSync(TMP, '{ invalid json')
     process.env.AI_ENGINES_CONFIG = TMP
     jest.resetModules()
-    const { loadAIEnginesConfig } = require('../lib/ai-engines-config')
+    const { loadAIEnginesConfig } = require('@/lib/ai-engines-config')
     expect(() => loadAIEnginesConfig()).toThrow(/Failed to parse/)
   })
 
@@ -29,7 +29,7 @@ describe('AI engines config error cases and helpers', () => {
     fs.writeFileSync(TMP, JSON.stringify({ engines: [] }))
     process.env.AI_ENGINES_CONFIG = TMP
     jest.resetModules()
-    const { loadAIEnginesConfig } = require('../lib/ai-engines-config')
+    const { loadAIEnginesConfig } = require('@/lib/ai-engines-config')
     expect(() => loadAIEnginesConfig()).toThrow(/validation error/)
   })
 
@@ -37,13 +37,13 @@ describe('AI engines config error cases and helpers', () => {
     fs.writeFileSync(TMP, JSON.stringify({ default: 'nope', engines: [{ id: 'a', provider: 'x' }] }))
     process.env.AI_ENGINES_CONFIG = TMP
     jest.resetModules()
-    const { loadAIEnginesConfig } = require('../lib/ai-engines-config')
+    const { loadAIEnginesConfig } = require('@/lib/ai-engines-config')
     expect(() => loadAIEnginesConfig()).toThrow(/does not match any engine id/)
   })
 
   it('getProviderTypesFromConfig and getEngineById work', () => {
     const cfg = { default: 'a', engines: [{ id: 'a', provider: 'p1' }, { id: 'b', provider: 'p2' }] }
-    const { getProviderTypesFromConfig, getEngineById } = require('../lib/ai-engines-config')
+    const { getProviderTypesFromConfig, getEngineById } = require('@/lib/ai-engines-config')
     const providers = getProviderTypesFromConfig(cfg)
     expect(providers.sort()).toEqual(['p1', 'p2'].sort())
     expect(getEngineById('b', cfg)).toEqual({ id: 'b', provider: 'p2' })

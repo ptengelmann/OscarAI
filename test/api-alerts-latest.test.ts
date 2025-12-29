@@ -1,12 +1,22 @@
+// Mock next/server to avoid ReferenceError for Request/NextRequest in Jest
+jest.mock('next/server', () => ({
+  NextRequest: class MockNextRequest {},
+  NextResponse: {
+    json: jest.fn((data) => ({
+      status: 200,
+      json: async () => data
+    }))
+  }
+}))
 
 // Mock PostgreSQLService at the module level to prevent real DB connection
-jest.mock('../lib/database-postgres', () => ({
+jest.mock('@/lib/database-postgres', () => ({
   PostgreSQLService: {
     getLatestAlerts: jest.fn()
   }
 }))
 
-import { GET } from '../app/api/alerts/latest/route'
+import { GET } from '@/app/api/alerts/latest/route'
 import { NextRequest } from 'next/server'
 
 describe('GET /api/alerts/latest (unit)', () => {
@@ -27,7 +37,7 @@ describe('GET /api/alerts/latest (unit)', () => {
         product_name: 'Test Product'
       }
     ]
-    const { PostgreSQLService } = require('../lib/database-postgres')
+    const { PostgreSQLService } = require('@/lib/database-postgres')
     PostgreSQLService.getLatestAlerts.mockResolvedValueOnce(mockAlerts)
 
     // Create a mock NextRequest

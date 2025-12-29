@@ -1,4 +1,4 @@
-import { loadAIEnginesConfig, getAIEnginesConfig, AIEnginesConfig } from '../lib/ai-engines-config'
+import { loadAIEnginesConfig, getAIEnginesConfig, AIEnginesConfig } from '@/lib/ai-engines-config'
 import fs from 'fs'
 import path from 'path'
 

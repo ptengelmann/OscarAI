@@ -5,7 +5,7 @@ jest.mock('next/navigation', () => ({
   usePathname: () => '/alerts',
 }))
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
-import SmartAlertsPage from '../app/alerts/page'
+import SmartAlertsPage from '@/app/alerts/page'
 import { useUser } from '@/contexts/UserContext'
 
 jest.mock('@/contexts/UserContext')
