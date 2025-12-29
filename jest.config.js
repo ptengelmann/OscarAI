@@ -1,15 +1,20 @@
 module.exports = {
   preset: 'ts-jest',
-  testEnvironment: 'node',
-  roots: ['<rootDir>/src'],
-  testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
+  testEnvironment: 'jsdom',
+  roots: ['<rootDir>/test'],
+  testMatch: [
+    '**/__tests__/**/*.ts',
+    '**/__tests__/**/*.tsx',
+    '**/?(*.)+(spec|test).ts',
+    '**/?(*.)+(spec|test).tsx'
+  ],
   transform: {
-    '^.+\\.ts$': 'ts-jest'
+    '^.+\\.(ts|tsx)$': 'ts-jest'
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
-  setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/test/setup.ts'],
   testTimeout: 10000,
   coverageDirectory: 'coverage',
   coverageReporters: ['json', 'lcov', 'text', 'html']

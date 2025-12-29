@@ -15,7 +15,7 @@ describe('AI engines config loader', () => {
   })
 
   it('loads and validates the config file', () => {
-    const { getAIEnginesConfig } = require('../lib/ai-engines-config') as {
+    const { getAIEnginesConfig } = require('@/lib/ai-engines-config') as {
       getAIEnginesConfig: () => any
     }
 

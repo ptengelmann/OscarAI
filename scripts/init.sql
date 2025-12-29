@@ -1,0 +1,2 @@
+CREATE SCHEMA IF NOT EXISTS signalix;
+ALTER SCHEMA signalix OWNER TO signalix;
