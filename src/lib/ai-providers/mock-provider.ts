@@ -8,7 +8,7 @@ import {
 /**
  * MockAIProvider
  * - Accepts an optional predefined response (or a function to generate one)
- * - Logs all inputs to console for visibility in tests (only during test runs)
+ * - Logs all inputs to console for visibility in tests
  */
 export class MockAIProvider implements AIProviderInterface {
   private predefined: AIResponse | AIStructuredResponse | ((prompt: string, schema?: any, options?: AIProviderConfig) => AIResponse | AIStructuredResponse)
@@ -48,11 +48,6 @@ export class MockAIProvider implements AIProviderInterface {
   }
 
   async generateCompletion(prompt: string, options?: AIProviderConfig): Promise<AIResponse> {
-    // Only log during tests (NODE_ENV === 'test' or JEST_WORKER_ID is set)
-    if (process.env.NODE_ENV === 'test' || process.env.JEST_WORKER_ID !== undefined) {
-      console.log('[MockAIProvider] generateCompletion called with prompt:', prompt)
-      console.log('[MockAIProvider] options:', options)
-    }
 
     const resolved = this.resolvePredefined(prompt, undefined, options)
 
@@ -69,12 +64,6 @@ export class MockAIProvider implements AIProviderInterface {
   }
 
   async generateStructuredResponse<T = any>(prompt: string, schema?: any, options?: AIProviderConfig): Promise<AIStructuredResponse<T>> {
-    // Only log during tests (NODE_ENV === 'test' or JEST_WORKER_ID is set)
-    if (process.env.NODE_ENV === 'test' || process.env.JEST_WORKER_ID !== undefined) {
-      console.log('[MockAIProvider] generateStructuredResponse called with prompt:', prompt)
-      console.log('[MockAIProvider] schema:', schema)
-      console.log('[MockAIProvider] options:', options)
-    }
 
     const resolved = this.resolvePredefined(prompt, schema, options)
 

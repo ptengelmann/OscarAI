@@ -1,3 +1,6 @@
+
+// Always load config at app startup (server-side)
+import '@/lib/config'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'

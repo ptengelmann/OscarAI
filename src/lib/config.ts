@@ -33,7 +33,15 @@ try {
 }
 
 
+
 const config = ConfigSchema.parse(configJson);
 process.env.AI_ENGINES_CONFIG_PATH = config.aiEngineConfigPath;
+
+// Print the loaded config to the console at startup (server-side only)
+if (typeof window === 'undefined') {
+  // Pretty-print config, but avoid printing secrets if schema expands
+  // eslint-disable-next-line no-console
+  console.log('[Config] Loaded configuration:', JSON.stringify(config, null, 2));
+}
 
 export default config;
