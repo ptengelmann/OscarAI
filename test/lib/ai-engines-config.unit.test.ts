@@ -1,25 +1,32 @@
-import { loadAIEnginesConfig, getAIEnginesConfig, AIEnginesConfig } from '@/lib/ai-engines-config'
 import fs from 'fs'
 import path from 'path'
 
 describe('ai-engines-config (unit)', () => {
-  const configPath = path.resolve(process.cwd(), 'config', 'ai-engines.config.json')
-  let originalEnv: string | undefined
-  let configBackup: string | undefined
+  const TEST_CONFIG_PATH = './test/lib/fixtures/unit-ai-engines.config.json'
+  const TEST_CONFIG_ABS = path.resolve(process.cwd(), TEST_CONFIG_PATH)
+  const validConfig = {
+    default: 'mock',
+    engines: [
+      { id: 'mock', provider: 'mock', description: 'Mock engine' }
+    ]
+  }
 
   beforeAll(() => {
-    if (fs.existsSync(configPath)) {
-      configBackup = fs.readFileSync(configPath, 'utf-8')
-    }
+    fs.mkdirSync(path.dirname(TEST_CONFIG_ABS), { recursive: true })
+    fs.writeFileSync(TEST_CONFIG_ABS, JSON.stringify(validConfig, null, 2))
   })
 
   afterAll(() => {
-    if (configBackup !== undefined) {
-      fs.writeFileSync(configPath, configBackup, 'utf-8')
-    }
+    fs.unlinkSync(TEST_CONFIG_ABS)
   })
 
   it('loads a valid config file', () => {
+    jest.resetModules()
+    jest.doMock('@/lib/config', () => ({
+      __esModule: true,
+      default: { aiEngineConfigPath: TEST_CONFIG_PATH }
+    }))
+    const { loadAIEnginesConfig } = require('@/lib/ai-engines-config')
     const config = loadAIEnginesConfig()
     expect(config).toHaveProperty('default')
     expect(Array.isArray(config.engines)).toBe(true)
@@ -27,12 +34,12 @@ describe('ai-engines-config (unit)', () => {
   })
 
   it('throws if config file is missing', () => {
-    if (fs.existsSync(configPath)) {
-      fs.renameSync(configPath, configPath + '.bak')
-    }
+    jest.resetModules()
+    jest.doMock('@/lib/config', () => ({
+      __esModule: true,
+      default: { aiEngineConfigPath: './does-not-exist.json' }
+    }))
+    const { loadAIEnginesConfig } = require('@/lib/ai-engines-config')
     expect(() => loadAIEnginesConfig()).toThrow(/not found/)
-    if (fs.existsSync(configPath + '.bak')) {
-      fs.renameSync(configPath + '.bak', configPath)
-    }
   })
 })
