@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "DATABASE_URL=postgresql://signalix:signalix_passwd@localhost:5432/signalix_db next dev",
+    "dev:config": "APP_CONFIG_PATH=./config/local.json next dev",
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
@@ -31,6 +32,7 @@
     "cheerio": "^1.0.0-rc.12",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cross-env": "^10.1.0",
     "eslint": "^8",
     "eslint-config-next": "14.1.3",
     "jsonwebtoken": "^9.0.2",
@@ -58,6 +60,9 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
     "@types/bcryptjs": "^2.4.6",
@@ -69,6 +74,7 @@
     "@types/puppeteer": "^7.0.4",
     "@types/supertest": "^2.0.16",
     "@types/uuid": "^9.0.8",
+    "babel-jest": "^30.2.0",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
     "prisma": "^5.22.0",

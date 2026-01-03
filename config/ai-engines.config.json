@@ -1,0 +1,15 @@
+{
+  "default": "mock-default",
+  "engines": [
+    {
+      "id": "mock-default",
+      "provider": "mock",
+      "description": "Local mock provider for testing",
+      "params": {
+        "response": "This is a mock response",
+        "maxTokens": 100
+      }
+    }
+
+  ]
+}

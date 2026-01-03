@@ -9,7 +9,7 @@ module.exports = {
     '**/?(*.)+(spec|test).tsx'
   ],
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
+    '^.+\\.(ts|tsx|js|jsx)$': ['babel-jest', { configFile: './babel.jest.config.js' }],
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'

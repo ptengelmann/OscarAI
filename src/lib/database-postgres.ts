@@ -1,6 +1,5 @@
-// src/lib/database-postgres.ts - COMPLETE VERSION with Smart Alerts
 import { PrismaClient } from '@prisma/client'
-import type { AlcoholSKU, CompetitorPrice } from '@/types'
+import type { CompetitorPrice } from '@/types'
 
 // CRITICAL FIX: Proper global singleton to prevent prepared statement conflicts
 declare global {

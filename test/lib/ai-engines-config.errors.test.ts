@@ -6,37 +6,48 @@ describe('AI engines config error cases and helpers', () => {
 
   afterEach(() => {
     try { fs.unlinkSync(TMP) } catch (e) { /* ignore */ }
-    delete process.env.AI_ENGINES_CONFIG
     jest.resetModules()
   })
 
   it('throws when file is missing', () => {
-    process.env.AI_ENGINES_CONFIG = path.resolve(process.cwd(), 'does-not-exist.json')
     jest.resetModules()
+    jest.doMock('@/lib/config', () => ({
+      __esModule: true,
+      default: { aiEngineConfigPath: './does-not-exist.json' }
+    }))
     const { loadAIEnginesConfig } = require('@/lib/ai-engines-config')
     expect(() => loadAIEnginesConfig()).toThrow(/not found/)
   })
 
   it('throws on invalid JSON', () => {
     fs.writeFileSync(TMP, '{ invalid json')
-    process.env.AI_ENGINES_CONFIG = TMP
     jest.resetModules()
+    jest.doMock('@/lib/config', () => ({
+      __esModule: true,
+      default: { aiEngineConfigPath: TMP }
+    }))
     const { loadAIEnginesConfig } = require('@/lib/ai-engines-config')
     expect(() => loadAIEnginesConfig()).toThrow(/Failed to parse/)
   })
 
   it('throws on invalid schema', () => {
     fs.writeFileSync(TMP, JSON.stringify({ engines: [] }))
-    process.env.AI_ENGINES_CONFIG = TMP
     jest.resetModules()
+    jest.doMock('@/lib/config', () => ({
+      __esModule: true,
+      default: { aiEngineConfigPath: TMP }
+    }))
     const { loadAIEnginesConfig } = require('@/lib/ai-engines-config')
     expect(() => loadAIEnginesConfig()).toThrow(/validation error/)
   })
 
   it('throws when default does not match any engine id', () => {
     fs.writeFileSync(TMP, JSON.stringify({ default: 'nope', engines: [{ id: 'a', provider: 'x' }] }))
-    process.env.AI_ENGINES_CONFIG = TMP
     jest.resetModules()
+    jest.doMock('@/lib/config', () => ({
+      __esModule: true,
+      default: { aiEngineConfigPath: TMP }
+    }))
     const { loadAIEnginesConfig } = require('@/lib/ai-engines-config')
     expect(() => loadAIEnginesConfig()).toThrow(/does not match any engine id/)
   })

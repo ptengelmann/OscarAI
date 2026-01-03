@@ -35,6 +35,33 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
+## Configuration Management
+
+### Sensitive Data
+Sensitive values (e.g., database URL, JWT secret) must be set via environment variables and should never be stored in config files or source control.
+
+Set these in your deployment environment, Docker Compose, or with cross-env:
+
+```
+DATABASE_URL=your_db_url JWT_SECRET=your_jwt_secret npm run dev
+```
+
+### Non-Sensitive Config
+
+Non-sensitive, environment-specific settings (e.g., AI engine config path) are managed via config files in the config folder:
+
+- config/default.json
+- config/local.json
+- config/remote.json
+
+Select the config file using the APP_CONFIG_PATH environment variable:
+
+```
+npx cross-env APP_CONFIG_PATH=./config/local.json npm run dev
+```
+
+The config loader (src/lib/config.ts) loads the selected config file and sets non-sensitive config values for the app.
+
 ## AI Engines configuration
 
 This project supports an external AI engines configuration file that describes available AI engine entries and the default engine to use.

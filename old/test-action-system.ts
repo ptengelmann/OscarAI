@@ -1,7 +1,7 @@
 // Quick test script for action system
 // Tests the ActionEngine without database push
 
-import { ActionEngine } from './src/lib/action-engine'
+import { ActionEngine } from '../src/lib/action-engine'
 
 async function testActionSystem() {
   console.log('🧪 Testing Action System...\n')

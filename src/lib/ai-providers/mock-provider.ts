@@ -48,8 +48,6 @@ export class MockAIProvider implements AIProviderInterface {
   }
 
   async generateCompletion(prompt: string, options?: AIProviderConfig): Promise<AIResponse> {
-    console.log('[MockAIProvider] generateCompletion called with prompt:', prompt)
-    console.log('[MockAIProvider] options:', options)
 
     const resolved = this.resolvePredefined(prompt, undefined, options)
 
@@ -58,7 +56,7 @@ export class MockAIProvider implements AIProviderInterface {
       content: (resolved as any).content ?? JSON.stringify((resolved as any).parsed ?? ''),
       usage: (resolved as any).usage,
       model: (resolved as any).model,
-  provider: 'mock',
+      provider: 'mock',
       timestamp: new Date().toISOString()
     }
 
@@ -66,9 +64,6 @@ export class MockAIProvider implements AIProviderInterface {
   }
 
   async generateStructuredResponse<T = any>(prompt: string, schema?: any, options?: AIProviderConfig): Promise<AIStructuredResponse<T>> {
-    console.log('[MockAIProvider] generateStructuredResponse called with prompt:', prompt)
-    console.log('[MockAIProvider] schema:', schema)
-    console.log('[MockAIProvider] options:', options)
 
     const resolved = this.resolvePredefined(prompt, schema, options)
 
@@ -80,7 +75,7 @@ export class MockAIProvider implements AIProviderInterface {
         raw_content: (resolved as any).raw_content ?? (resolved as any).content,
         usage: (resolved as any).usage,
         model: (resolved as any).model,
-  provider: 'mock',
+        provider: 'mock',
         timestamp: new Date().toISOString()
       }
     }
@@ -101,7 +96,7 @@ export class MockAIProvider implements AIProviderInterface {
       raw_content: content,
       usage: (resolved as any).usage,
       model: (resolved as any).model,
-  provider: 'mock',
+      provider: 'mock',
       timestamp: new Date().toISOString()
     }
   }
