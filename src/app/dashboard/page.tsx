@@ -407,6 +407,7 @@ useEffect(() => {
     setLoadError(null)
     
     try {
+      console.log('Fetching dashboard stats and recent analyses for user:', encodeURIComponent(user.email))
       const statsResponse = await fetch(`/api/dashboard/stats?userId=${encodeURIComponent(user.email)}`)
       
       if (statsResponse.ok) {
@@ -458,7 +459,7 @@ useEffect(() => {
       setTimeout(() => setLoadingStage('Generating AI insights...'), 5000)
 
       const response = await responsePromise
-
+      console.log('Competitive intelligence response received. Response is:', response)
       if (!response.ok) {
         const errorData = await response.json()
         throw new Error(errorData.error || `HTTP ${response.status}`)

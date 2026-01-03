@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "DATABASE_URL=postgresql://signalix:signalix_passwd@localhost:5432/signalix_db next dev",
     "dev:config": "APP_CONFIG_PATH=./config/local.json next dev",
     "build": "prisma generate && next build",
     "start": "next start",

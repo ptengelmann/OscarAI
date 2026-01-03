@@ -45,18 +45,18 @@ export async function GET(request: NextRequest) {
     const forceRefresh = searchParams.get('refresh') === 'true'
     const analysisDepth = searchParams.get('depth') || 'standard' // surface | standard | deep
     
+    console.log(`👤 User ID: ${userId}, Analysis Depth: ${analysisDepth}, Force Refresh: ${forceRefresh}`)
     if (!userId) {
       return NextResponse.json({ error: 'User ID required' }, { status: 400 })
     }
 
+    console.log('>>> process.env:', process.env.ANTHROPIC_API_KEY ? 'ANTHROPIC_API_KEY is set' : 'ANTHROPIC_API_KEY is NOT set')
     if (!process.env.ANTHROPIC_API_KEY) {
       return NextResponse.json({ 
         error: 'AI not configured',
         message: 'ANTHROPIC_API_KEY required for competitive intelligence'
       }, { status: 500 })
     }
-
-    console.log(`🧠 ADVANCED competitive intelligence for ${userId} (depth: ${analysisDepth})`)
 
     // CHECK CACHE FIRST (unless force refresh requested)
     if (!forceRefresh) {
